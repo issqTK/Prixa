@@ -1,0 +1,11 @@
+{
+    "dashboard_nav" : "Account",
+    "command_nav" : "Commandes",
+    "annonce_nav" : "Annonces",
+    "profile_nav" : "Mon Profile",
+    "client_nav" : "Mes Clients",
+    "setting_nav" : "Réglages",
+    "Whoops! Something went wrong." :  "Whoops! Quelque chose ne va pas.",
+    "Welcome :name" : "Bonjour :name",
+    "Go" : "Lancer"
+}

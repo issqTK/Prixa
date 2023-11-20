@@ -1,0 +1,11 @@
+{
+    "dashboard_nav" : "Dashboard",
+    "command_nav" : "Commands",
+    "annonce_nav" : "Ads Area",
+    "profile_nav" : "My Profile",
+    "client_nav" : "My Clients",
+    "setting_nav" : "Settings",
+    "Whoops! Something went wrong." : "Whoops! Something went wrong.",
+    "Welcome :name" : "Welcome :name",
+    "Go" : "Go"
+}
