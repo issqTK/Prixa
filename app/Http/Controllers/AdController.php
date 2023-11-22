@@ -17,11 +17,21 @@ use App\Models\Image;
 class AdController extends Controller
 {
     public function index() {
-        return Inertia::render('Ads/Display');
+        return Inertia::render('Ads/List', [
+            'head' => __('head_ads'), 
+            'header' => __('header_ads'), 
+            'areYouSure' => __('Are you sure you want to delete this ad?'),
+            'trans' => \Lang::get('adsList')
+        ]);
     }
 
     public function create() {
-        return Inertia::render('Ads/Create');
+        return Inertia::render('Ads/Create', [
+            'head' => __('head_ads'), 
+            'header' => __('header_ads'), 
+            'trans' => \Lang::get('adCreate'),
+            'pictures_allowed' => __('only 8 pictures allowed!')
+        ]);
     }
 
     public function edit($id) {
@@ -35,7 +45,14 @@ class AdController extends Controller
         
         if($ads == null) abort(404);
 
-        return Inertia::render('Ads/Edit', ['ad' => $ads]);
+        return Inertia::render('Ads/Edit', [
+            'ad' => $ads,
+            'head' => __('head_ads'), 
+            'header' => __('header_ads'), 
+            'trans' => \Lang::get('adEdit'),
+            'areYouSure' => __('Are you sure you want to delete this ad?'),
+            'pictures_allowed' => __('only 8 pictures allowed!')
+        ]);
     }
 
     public function store(Request $request) {
@@ -95,7 +112,7 @@ class AdController extends Controller
    
         }
 
-        return redirect()->back()->with(['success' => __('ad.create_success')]);
+        return redirect()->back()->with(['success' => __('Ad was created successfully, you may create another')]);
     }
 
     public function update(Request $request, $id) {
@@ -137,11 +154,12 @@ class AdController extends Controller
             $ad->save();
         }
 
-        return redirect()->back()->with(['success' => __('ad.update_success')]);
+        return redirect()->back()->with(['success' => __('Ad was Updated successfully')]);
     }
 
     public function delete($id) {
-        $ad = Ad::where('id', $id)->first();
+        $ad = Ad::find($id);
+        
         $images = Image::where('ad_id', $ad->id)->get();
 
         $ad->delete();
@@ -154,7 +172,7 @@ class AdController extends Controller
             $img->delete();
         }
 
-        return redirect()->route('ads')->with(['success' => 'Ad has been deleted successfuly']);
+        return redirect()->route('ads')->with(['success' => __('Ad has been deleted successfuly')]);
     }
 
     public function deleteImage($id) {
@@ -168,8 +186,7 @@ class AdController extends Controller
 
         $img->delete();
 
-        return redirect()->back()->with(['successTwo' => __('ad.Image was successfully deleted')]);
-
+        return redirect()->back()->with(['successTwo' => __('Image was successfully deleted')]);
     }
 
     public function uploadImages(Request $request, $adID) {
@@ -202,7 +219,7 @@ class AdController extends Controller
 
         Image::find($image)->update(['active' => true]);
         
-        return back()->with(['successTwo' => 'Active Image Updated Successfully']);
+        return back()->with(['successTwo' => __('Image Active Updated Successfully')]);
     } 
 
     /* Create Ad Guest */

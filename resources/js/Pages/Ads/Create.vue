@@ -1,10 +1,10 @@
 <template>
-    <Head title="Create Ads" />
+    <Head :title="head" />
     
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{ trans.title_header }}
+                {{ header }}
             </h1>
         </template>
     
@@ -13,7 +13,7 @@
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
                     <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
                         <span class="material-icons-outlined">playlist_add</span>
-                        {{ trans.Create_New_Annonce }}
+                        {{ trans.h2 }}
                     </h2>
 
                     <div class="p-6 bg-white">
@@ -25,7 +25,7 @@
 
                         <form @submit.prevent="submit">
                             <div v-if="$page.props.auth.user.admin" class="mb-4">
-                                <BreezeLabel for="state" value="State"/>
+                                <BreezeLabel for="state" :value="trans.state_label"/>
                                 
                                 <select 
                                     id="state"
@@ -33,9 +33,9 @@
                                     @change="form.clearErrors('state')"
                                     class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                 >
-                                    <option value="Pending">Pending</option>
-                                    <option value="Valid">Valid</option>
-                                    <option value="Rejected">Rejected</option>
+                                    <option value="Pending">{{ trans.pending_option }}</option>
+                                    <option value="Valid">{{ trans.valid_option }}</option>
+                                    <option value="Rejected">{{ trans.rejected_option }}</option>
                                 </select>
                             </div>
 
@@ -106,7 +106,7 @@
                                         :class="{'border-red-500': form.errors.category}" 
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
 
-                                        <option value="" hidden disabled selected>{{ trans.Choose_Category }} </option>
+                                        <option value="" hidden disabled selected>{{ trans.choose_category_option }} </option>
                                         <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
                                     </select>
 
@@ -124,7 +124,7 @@
                                         :class="{'border-red-500':form.errors.product}" 
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
 
-                                        <option value="" hidden disabled selected>{{ trans.Choose_Product }}</option>
+                                        <option value="" hidden disabled selected>{{ trans.choose_product_option }}</option>
                                         <option v-for="product in products_filtred" :key="product.id" :value="product.id">
                                             {{ product.name }}
                                         </option>
@@ -144,7 +144,7 @@
                                         :class="{'border-red-500': form.errors.city}" 
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
 
-                                        <option value="" hidden disabled selected>{{ trans.Choose_City }}</option>
+                                        <option value="" hidden disabled selected>{{ trans.choose_city_option }}</option>
                                         <option v-for="city in cities" :key="city.id" :value="city.id">
                                             {{ city.name }}
                                         </option>
@@ -157,7 +157,7 @@
                             </div>
 
                             <div class="mb-4" v-if="$page.props.auth.user.admin == true">
-                                <BreezeLabel for="meta_title" value="Meta Title" />
+                                <BreezeLabel for="meta_title" :value="trans.meta_title_label" />
 
                                 <BreezeInput 
                                     id="meta_title" 
@@ -173,7 +173,7 @@
                             </div>
 
                             <div class="mb-4" v-if="$page.props.auth.user.admin == true">
-                                <BreezeLabel for="meta_description" value="Meta Description" />
+                                <BreezeLabel for="meta_description" :value="trans.meta_description_label" />
 
                                 <textarea id="meta_description" cols="30" rows="3"
                                     class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
@@ -187,7 +187,7 @@
                             </div>
                             
                             <div class="mb-4" v-if="$page.props.auth.user.admin">
-                                <BreezeLabel for="slug" value="Slug" />
+                                <BreezeLabel for="slug" :value="trans.slug_label" />
 
                                 <BreezeInput
                                     id="slug"
@@ -227,7 +227,7 @@
 
                             <div class="flex items-center justify-end mt-8">
                                 <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                    {{ trans.Save_Ad }}
+                                    {{ trans.save_btn }}
                                 </BreezeButton>
                             </div>
                         </form>
@@ -239,17 +239,15 @@
 </template>
 
 <script setup>
-import { Head, router, usePage, useForm, Link } from "@inertiajs/vue3";
-import { ref, onMounted, reactive } from "vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import { ref, onMounted } from "vue";
 
 import BreezeAuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import BreezeButton from "@/Components/PrimaryButton.vue";
 import BreezeInput from "@/Components/TextInput.vue";
 import BreezeLabel from "@/Components/InputLabel.vue";
 
-const page = usePage();
-
-const trans = ref(page.props.lang.ad);
+const props = defineProps(['head', 'header', 'trans', 'pictures_allowed']);
 
 const cities = ref();
 const categories = ref();
@@ -268,7 +266,7 @@ const form = useForm({
     category: "",
     product: "",
     city: "",
-    slug: null,
+    slug: "",
     state: 'Pending',
     images: [],
 });
@@ -304,7 +302,7 @@ const displayImage = (event) => {
     const files = event.target.files;
 
     if (files.length > 8) {
-        form.errors.images = 'only 8 pictures allowed!';
+        form.errors.images = props.pictures_allowed;
 
         setTimeout(() => { form.errors.images = null }, 2500);
 
@@ -315,7 +313,7 @@ const displayImage = (event) => {
         if (!file.type.match("image.*")) return;
 
         if (images.value.length >= 8) {
-            form.errors.images = 'only 8 pictures allowed!';
+            form.errors.images = props.pictures_allowed;
 
             setTimeout(() => { form.errors.images = null }, 2500);
             

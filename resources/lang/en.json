@@ -7,5 +7,16 @@
     "setting_nav" : "Settings",
     "Whoops! Something went wrong." : "Whoops! Something went wrong.",
     "Welcome :name" : "Welcome :name",
-    "Go" : "Go"
+    "Go" : "Go",
+
+    "head_ads" : "Manage Ads",
+    "header_ads" : "Ads Manager",
+    "Ad has been deleted successfuly" : "Ad has been deleted successfuly",
+    "Are you sure you want to delete this ad?" : "Are you sure you want to delete this ad?",
+    "only 8 pictures allowed!" : "only 8 pictures allowed!",
+    "Ad was created successfully, you may create another" : "Ad was created successfully, you may create another",
+    "Ad was Updated successfully" : "Ad was Updated successfully",
+    "Image was successfully deleted" : "Image was successfully deleted",
+    "Images was successfully created" : "Images was successfully created",
+    "Image Active Updated Successfully" : "Image Active Updated Successfully"
 }

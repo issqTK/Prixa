@@ -22,7 +22,7 @@ return [
 
     'errors_img_nottype' => 'This file is not an Image!',
 
-    'Image was successfully deleted' => 'Image was successfully deleted',
+    
     'Images was successfully created' => 'Images was successfully created',
 
     //labels

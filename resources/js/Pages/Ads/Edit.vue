@@ -1,10 +1,10 @@
 <template>
-    <Head title="Edit Ads" />
+    <Head :title="head" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{ trans.title_header }}
+                {{ header }}
             </h1>
         </template>
 
@@ -13,7 +13,7 @@
                 <div class="overflow-hidden sm:shadow-xl sm:rounded-lg">
                     <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
                         <span class="material-icons-outlined">published_with_changes</span>
-                        {{ trans.edit_ad_nav }}
+                        {{ trans.h2 }}
                     </h2>
 
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -30,21 +30,21 @@
 
                             <div class="mb-4">
                                 <div class="flex gap-4 items-center">
-                                    <BreezeLabel for="state" value="State"/>
+                                    <BreezeLabel for="state" :value="trans.state_label"/>
 
                                     <div v-if="ad.state == 'Pending'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-amber-400 ring-2 ring-amber-300"></span>
-                                        <span class="text-xs font-semibold text-amber-400">Pending</span>
+                                        <span class="text-xs font-semibold text-amber-400">{{ trans.state_pending }}</span>
                                     </div>
                                     
                                     <div v-if="ad.state == 'Valid'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-emerald-500 ring-2 ring-emerald-400"></span>
-                                        <span class="text-xs font-semibold text-emerald-500">Valid</span>
+                                        <span class="text-xs font-semibold text-emerald-500">{{ trans.state_valid }}</span>
                                     </div>
 
                                     <div v-if="ad.state == 'Rejected'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-red-500 ring-2 ring-red-400"></span>
-                                        <span class="text-xs font-semibold text-red-500">Rejected</span>
+                                        <span class="text-xs font-semibold text-red-500">{{ trans.state_rejected }}</span>
                                     </div>
                                 </div>
                                 
@@ -55,9 +55,9 @@
                                         @change="form.clearErrors('state')"
                                         class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     >
-                                        <option value="Pending">Pending</option>
-                                        <option value="Valid">Valid</option>
-                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pending">{{ trans.pending_option }}</option>
+                                        <option value="Valid">{{ trans.valid_option }}</option>
+                                        <option value="Rejected">{{ trans.rejected_option }}</option>
                                     </select>
 
                                 </div>
@@ -147,7 +147,7 @@
                                         :class="{'border-red-500':form.errors.category}"
                                         class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     >
-                                        <option :value="null" hidden disabled selected >{{ trans.Choose_Category }} </option>
+                                        <option :value="null" hidden disabled selected >{{ trans.choose_category_option }} </option>
 
                                         <option
                                             v-for="cat in categories"
@@ -218,7 +218,7 @@
 
                             <!-- Seo -->
                             <div class="mb-4" v-if="page.props.auth.user.admin == true">
-                                <BreezeLabel for="meta_title" value="Meta Title" />
+                                <BreezeLabel for="meta_title" :value="trans.meta_title_label" />
 
                                 <BreezeInput
                                     id="meta_title"
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class="mb-4" v-if="page.props.auth.user.admin == true" >
-                                <BreezeLabel for="meta_description" value="Meta Description" />
+                                <BreezeLabel for="meta_description" :value="trans.meta_description_label" />
 
                                 <textarea
                                     id="meta_description"
@@ -253,7 +253,7 @@
                             </div>
 
                             <div class="mb-4" v-if="page.props.auth.user.admin == true">
-                                <BreezeLabel for="slug" value="Slug" />
+                                <BreezeLabel for="slug" :value="trans.slug_label" />
 
                                 <BreezeInput
                                     id="slug"
@@ -271,17 +271,17 @@
                                     target="_blank"
                                     class="text-zinc-950 uppercase font-semibold text-sm border-b border-transparent hover:border-zinc-950"
                                 >
-                                    Preview Ad
+                                    {{ trans.preview_link }}
                                 </a>
 
                                 <button @click.prevent="deleteAd"
                                     class="text-rose-600 uppercase font-semibold text-sm border-b border-transparent hover:border-rose-600"
                                 >
-                                    {{ trans.Delete_Ad }}
+                                    {{ trans.delete_link }}
                                 </button>
 
                                 <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                    {{ trans.Save_Changes }}
+                                    {{ trans.save_btn }}
                                 </BreezeButton>
                             </div>
                         </form>
@@ -319,13 +319,13 @@
                                     <span v-if="image.active"
                                         class="absolute left-0 right-0 bottom-0 h-9 flex items-center justify-center font-bold uppercase text-white " 
                                         style="background: rgba(0, 0, 0, 0.776); font-size:.6em">
-                                        active
+                                        {{ trans.active_label }}
                                     </span>
                                     
                                     <span v-else @click="makeItActive(image.id)"
                                         class="absolute left-0 right-0 -bottom-9 group-hover:bottom-0 h-9 transition-all flex items-center justify-center font-bold uppercase text-black cursor-pointer" 
                                         style="background: rgba(255, 255, 255, 0.776);font-size:.6em">
-                                        Make active
+                                        {{ trans.make_active_link }}
                                     </span>
                                     
                                     <svg v-if="!image.active" 
@@ -350,8 +350,8 @@
 </template>
 
 <script setup>
-import { Head, router, usePage, useForm, Link } from "@inertiajs/vue3";
-import { ref, onMounted, reactive } from "vue";
+import { Head, router, usePage, useForm } from "@inertiajs/vue3";
+import { ref, onMounted } from "vue";
 import BreezeAuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import BreezeButton from "@/Components/PrimaryButton.vue";
 import BreezeInput from "@/Components/TextInput.vue";
@@ -359,9 +359,7 @@ import BreezeLabel from "@/Components/InputLabel.vue";
 
 const page = usePage();
 
-const trans = ref(page.props.lang.ad);
-
-const props = defineProps(["ad"]);
+const props = defineProps(['ad', 'head', 'header', 'trans', 'pictures_allowed', 'areYouSure']);
 
 const cities = ref();
 
@@ -373,8 +371,8 @@ const current_active = ref(true);
 
 const deleteAd = () => { 
     router.delete(route('ads.delete', props.ad.id), {
-        onBefore: () => confirm('Are you sure you want to delete this user?'),
-        onSuccess: () => setTimeout(page.props.flash.success = null, 2500)
+        onBefore: () => confirm(props.areYouSure),
+        onSuccess: () => setTimeout(() => { page.props.flash.success = null }, 2500),
     });
 };
 
@@ -426,7 +424,6 @@ const deleteImage = (imageID, index) => {
     router.get(route('ad.delete.image', imageID), {}, {
         preserveState: true,
         preserveScroll: true,
-        onBefore: () => confirm('Are you Sure!'),
         onSuccess: () => {
             setTimeout(() => { page.props.flash.successTwo = null }, 2500);
             imagesList.value = props.ad.images;
@@ -440,7 +437,7 @@ const createImage = (event) => {
     const images = [];
 
     if (files.length + imagesList.value.length > 8) {
-        errorImage.value = "only 8 pictures allowed!";
+        errorImage.value = props.pictures_allowed;
 
         setTimeout(() => {errorImage.value = null;}, 2500);
 
@@ -448,13 +445,7 @@ const createImage = (event) => {
     }
 
     Array.from(files).forEach((file) => {
-        if (!file.type.match("image.*")) {
-            errorImage.value = "File uploaded is not an Image!";
-
-            setTimeout(() => {errorImage.value = null;}, 2500);
-            
-            return;
-        } 
+        if (!file.type.match("image.*")) return; 
 
         if (listFilesName.length >= 0 && listFilesName.value.includes(file.name)) return;
 
@@ -485,7 +476,7 @@ const createImage = (event) => {
 const submitUpdate = () => {
     form.put(route("ads.update", props.ad.id), {
         onSuccess: () => {
-            setTimeout(() => {page.props.flash.success = null}, 2500);
+            setTimeout(() => { page.props.flash.success = null }, 2500);
         },
     });
 };

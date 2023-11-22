@@ -1,10 +1,10 @@
 <template>
-    <Head title="Manage Ads" />
+    <Head :title="head" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{ trans.title_header }}
+                {{ header }}
             </h1>
         </template>
 
@@ -21,26 +21,27 @@
                 <div class="relative overflow-hidden sm:rounded-lg sm:shadow-xl mb-4" >
                     <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
                         <span class="material-icons-outlined">featured_play_list</span>
-                        {{ trans.List_All_My_Ads }}
+                        {{ trans.h2 }}
                     </h2>
 
                     <Link :href="route('ads.create')"
                         class="absolute top-1.5 right-4 inline-flex items-center justify-center gap-2 py-2 px-4 text-xs font-bold tracking-wide uppercase hover:bg-zinc-950 bg-transparent text-zinc-950 hover:text-zinc-50 transition-all easy-in-out rounded border border-zinc-950">
                     
                         <span class="material-icons-outlined min-w-min">playlist_add</span>
-                        {{ trans.create_ad_nav }}
+                        {{ trans.new_ad }}
                     </Link>
 
                     <div v-if="displayAds.data && displayAds.data.length !== 0" class="py-4 px-6 flex flex-col gap-4">
                         <div v-for="ad in displayAds.data" :key="ad.id"
                             class="relative cursor-pointer rounded overflow-hidden border border-zinc-100" >
+                            
                             <!-- Actions -->
                             <div class="absolute top-0 bottom-0 left-0 right-0 flex">
                                 <div class="w-6/12 flex group">
                                     <Link 
                                         :href="route('ads.edit', ad.id)"
                                         class="w-full hidden group-hover:flex items-center justify-center bg-zinc-900 opacity-90 animate-pulse transition-all font-bold text-white capitalize rounded-l">
-                                        {{ trans.click_to_edit }}
+                                        {{ trans.edit_ad }}
                                     </Link>
                                 </div>
 
@@ -48,7 +49,7 @@
                                     <button @click.prevent="deletAd(ad.id)"
                                         class="w-full hidden group-hover:flex items-center justify-center bg-rose-700 opacity-90 animate-pulse transition-all font-bold text-white capitalize rounded-r"
                                     >
-                                        Click To Delete
+                                    {{ trans.delete_ad }}
                                     </button>
                                 </div>
                             </div>
@@ -136,24 +137,24 @@
                                 <div class="flex justify-end items-center">
                                     <div v-if="ad.state == 'Pending'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-amber-400 ring-2 ring-amber-300"></span>
-                                        <span class="text-xs font-semibold text-amber-400">Pending</span>
+                                        <span class="text-xs font-semibold text-amber-400">{{ trans.state_pending }}</span>
                                     </div>
                                     
                                     <div v-if="ad.state == 'Valid'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-emerald-500 ring-2 ring-emerald-400"></span>
-                                        <span class="text-xs font-semibold text-emerald-500">Valid</span>
+                                        <span class="text-xs font-semibold text-emerald-500">{{ trans.state_valid }}</span>
                                     </div>
 
                                     <div v-if="ad.state == 'Rejected'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-red-500 ring-2 ring-red-400"></span>
-                                        <span class="text-xs font-semibold text-red-500">Rejected</span>
+                                        <span class="text-xs font-semibold text-red-500">{{ trans.state_rejected }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="p-4" v-else>There is no Ads yet ..</div>
+                    <div class="p-4" v-else>{{ trans.no_ads_yet }}</div>
                 </div>
 
                 <TailwindPagination
@@ -168,18 +169,18 @@
 <script setup>
 import { Head, Link, usePage, router } from "@inertiajs/vue3";
 import BreezeAuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { TailwindPagination } from "laravel-vue-pagination";
+
+const props = defineProps(['head', 'header', 'trans', 'areYouSure']);
 
 const page = usePage();
 
-const trans = page.props.lang.ad;
-
 const deletAd = (ad) => {
     router.delete(route('ads.delete', ad), {
-        onBefore: () => confirm('Are you sure you want to delete this Ad?'),
+        onBefore: () => confirm(props.areYouSure),
         onSuccess: () => {
-            setTimeout(() => { page.props.flash.success = null;}, 2500);
+            setTimeout(() => { page.props.flash.success = null }, 2500);
             getResults();
         }
     });
