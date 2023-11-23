@@ -1,10 +1,10 @@
 <template>
-    <Head :title="head" />
+    <Head :title="__('Manage Ads')" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{ header }}
+                {{ __('Ads Manager') }}
             </h1>
         </template>
 
@@ -13,7 +13,7 @@
                 <div class="overflow-hidden sm:shadow-xl sm:rounded-lg">
                     <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
                         <span class="material-icons-outlined">published_with_changes</span>
-                        {{ trans.h2 }}
+                        {{ __('Edit Ad') }}
                     </h2>
 
                     <div class="p-6 bg-white border-b border-gray-200">
@@ -30,21 +30,21 @@
 
                             <div class="mb-4">
                                 <div class="flex gap-4 items-center">
-                                    <BreezeLabel for="state" :value="trans.state_label"/>
+                                    <BreezeLabel for="state" :value="__('State')"/>
 
                                     <div v-if="ad.state == 'Pending'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-amber-400 ring-2 ring-amber-300"></span>
-                                        <span class="text-xs font-semibold text-amber-400">{{ trans.state_pending }}</span>
+                                        <span class="text-xs font-semibold text-amber-400">{{ __('Pending') }}</span>
                                     </div>
                                     
                                     <div v-if="ad.state == 'Valid'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-emerald-500 ring-2 ring-emerald-400"></span>
-                                        <span class="text-xs font-semibold text-emerald-500">{{ trans.state_valid }}</span>
+                                        <span class="text-xs font-semibold text-emerald-500">{{ __('Valid') }}</span>
                                     </div>
 
                                     <div v-if="ad.state == 'Rejected'" class="flex items-center gap-2">
                                         <span class="w-2 h-2 rounded-full border-2 border-red-500 ring-2 ring-red-400"></span>
-                                        <span class="text-xs font-semibold text-red-500">{{ trans.state_rejected }}</span>
+                                        <span class="text-xs font-semibold text-red-500">{{ __('Rejected') }}</span>
                                     </div>
                                 </div>
                                 
@@ -55,9 +55,9 @@
                                         @change="form.clearErrors('state')"
                                         class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     >
-                                        <option value="Pending">{{ trans.pending_option }}</option>
-                                        <option value="Valid">{{ trans.valid_option }}</option>
-                                        <option value="Rejected">{{ trans.rejected_option }}</option>
+                                        <option value="Pending">{{ __('Pending') }}</option>
+                                        <option value="Valid">{{ __('Valid') }}</option>
+                                        <option value="Rejected">{{ __('Rejected') }}</option>
                                     </select>
 
                                 </div>
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel for="title" :value="trans.title_label"/>
+                                <BreezeLabel for="title" :value="__('Title')"/>
 
                                 <BreezeInput
                                     id="title"
@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel for="description" :value="trans.description_label" />
+                                <BreezeLabel for="description" :value="__('Description')" />
 
                                 <textarea
                                     id="description"
@@ -101,7 +101,7 @@
 
                             <div class="w-full flex flex-col sm:flex-row sm:justify-between mb-4">
                                 <div class="w-full sm:w-6/12 sm:mr-2 mb-4 sm:mb-0">
-                                    <BreezeLabel for="price" :value="trans.price_label"/>
+                                    <BreezeLabel for="price" :value="__('Price')"/>
 
                                     <BreezeInput
                                         id="price"
@@ -118,7 +118,7 @@
                                 </div>
 
                                 <div class="w-full sm:w-6/12 sm:ml-2">
-                                    <BreezeLabel for="out-price" :value="trans.out_price_label"/>
+                                    <BreezeLabel for="out-price" :value="__('Out Price')"/>
 
                                     <BreezeInput
                                         id="out-price"
@@ -138,7 +138,7 @@
                             <!-- filter -->
                             <div class="w-full flex flex-col sm:flex-row sm:justify-between mb-4">
                                 <div class="w-full sm:w-6/12 sm:mr-4 mb-4 sm:mb-0">
-                                    <BreezeLabel for="category" :value="trans.category_label" />
+                                    <BreezeLabel for="category" :value="__('Category')" />
 
                                     <select
                                         id="category"
@@ -147,7 +147,7 @@
                                         :class="{'border-red-500':form.errors.category}"
                                         class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     >
-                                        <option :value="null" hidden disabled selected >{{ trans.choose_category_option }} </option>
+                                        <option :value="null" hidden disabled selected >{{ __('Choose Category') }} </option>
 
                                         <option
                                             v-for="cat in categories"
@@ -164,7 +164,7 @@
                                 </div>
 
                                 <div class="w-full sm:w-6/12 sm:mr-4 mb-4 sm:mb-0" >
-                                    <BreezeLabel for="product" :value="trans.product_label"/>
+                                    <BreezeLabel for="product" :value="__('Product')"/>
 
                                     <select
                                         id="product"
@@ -196,7 +196,7 @@
                                 </div>
 
                                 <div class="w-full sm:w-6/12">
-                                    <BreezeLabel for="city" :value="trans.city_label"/>
+                                    <BreezeLabel for="city" :value="__('City')"/>
 
                                     <select
                                         id="city"
@@ -218,7 +218,7 @@
 
                             <!-- Seo -->
                             <div class="mb-4" v-if="page.props.auth.user.admin == true">
-                                <BreezeLabel for="meta_title" :value="trans.meta_title_label" />
+                                <BreezeLabel for="meta_title" :value="__('Meta Title')" />
 
                                 <BreezeInput
                                     id="meta_title"
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class="mb-4" v-if="page.props.auth.user.admin == true" >
-                                <BreezeLabel for="meta_description" :value="trans.meta_description_label" />
+                                <BreezeLabel for="meta_description" :value="__('Meta Description')" />
 
                                 <textarea
                                     id="meta_description"
@@ -253,7 +253,7 @@
                             </div>
 
                             <div class="mb-4" v-if="page.props.auth.user.admin == true">
-                                <BreezeLabel for="slug" :value="trans.slug_label" />
+                                <BreezeLabel for="slug" :value="__('Slug')" />
 
                                 <BreezeInput
                                     id="slug"
@@ -271,30 +271,30 @@
                                     target="_blank"
                                     class="text-zinc-950 uppercase font-semibold text-sm border-b border-transparent hover:border-zinc-950"
                                 >
-                                    {{ trans.preview_link }}
+                                    {{ __('Preview Ad') }}
                                 </a>
 
                                 <button @click.prevent="deleteAd"
                                     class="text-rose-600 uppercase font-semibold text-sm border-b border-transparent hover:border-rose-600"
                                 >
-                                    {{ trans.delete_link }}
+                                    {{ __('Delete Ad') }}
                                 </button>
 
                                 <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                    {{ trans.save_btn }}
+                                    {{ __('Save Changes') }}
                                 </BreezeButton>
                             </div>
                         </form>
 
                          <!-- Images Setting -->
                          <div class="my-4">
-                            <BreezeLabel :value="trans.image_label"></BreezeLabel>
+                            <BreezeLabel :value="__('Pictures')"></BreezeLabel>
 
                             <div class="flex items-center justify-between my-4">
                                 <input @change="createImage($event)" id="images" type="file" class="hidden" multiple />
 
                                 <label for="images" class="block sm:inline py-3 px-4 bg-transparent hover:bg-zinc-950 text-zinc-950 hover:text-zinc-50 border border-zinc-950 text-sm font-semibold rounded cursor-pointer">
-                                    {{ trans.select_image_label }}
+                                    {{ __('Select Pictures') }}
                                 </label>
 
                                 <!--success message-->
@@ -319,13 +319,13 @@
                                     <span v-if="image.active"
                                         class="absolute left-0 right-0 bottom-0 h-9 flex items-center justify-center font-bold uppercase text-white " 
                                         style="background: rgba(0, 0, 0, 0.776); font-size:.6em">
-                                        {{ trans.active_label }}
+                                        {{ __('Active') }}
                                     </span>
                                     
                                     <span v-else @click="makeItActive(image.id)"
                                         class="absolute left-0 right-0 -bottom-9 group-hover:bottom-0 h-9 transition-all flex items-center justify-center font-bold uppercase text-black cursor-pointer" 
                                         style="background: rgba(255, 255, 255, 0.776);font-size:.6em">
-                                        {{ trans.make_active_link }}
+                                        {{ __('Make Active') }}
                                     </span>
                                     
                                     <svg v-if="!image.active" 
@@ -359,7 +359,7 @@ import BreezeLabel from "@/Components/InputLabel.vue";
 
 const page = usePage();
 
-const props = defineProps(['ad', 'head', 'header', 'trans', 'pictures_allowed', 'areYouSure']);
+const props = defineProps(['ad', 'pictures_allowed', 'areYouSure']);
 
 const cities = ref();
 

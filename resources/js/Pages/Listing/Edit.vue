@@ -1,10 +1,10 @@
 <template>
-    <Head title="Manage Listings" />
+    <Head :title="__('Manage Listing')" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                Listings Manager
+                {{__('Listing Manager')}}
             </h1>
         </template>
         <div class="py-9">
@@ -16,7 +16,7 @@
                         <span class="material-icons-outlined"
                             >published_with_changes</span
                         >
-                        Edit Listing
+                        {{__('Edit Listing')}}
                     </h2>
 
                     <div class="p-6 bg-white">
@@ -30,7 +30,7 @@
 
                         <form @submit.prevent="submit">
                             <div class="mb-4">
-                                <BreezeLabel for="title" value="Title" />
+                                <BreezeLabel for="title" :value="__('Title')" />
 
                                 <BreezeInput
                                     id="title"
@@ -54,7 +54,7 @@
                             <div class="mb-4">
                                 <BreezeLabel
                                     for="description_head"
-                                    value="Description Header"
+                                    :value="__('Description Header')"
                                 />
                                 <textarea
                                     id="description_head"
@@ -82,7 +82,7 @@
                             <div class="mb-4">
                                 <BreezeLabel
                                     for="description_foot"
-                                    value="Description Footer"
+                                    :value="__('Description Footer')"
                                 />
                                 <textarea
                                     id="description_foot"
@@ -115,7 +115,7 @@
                                 >
                                     <BreezeLabel
                                         for="category"
-                                        value="Category"
+                                        :value="__('Category')"
                                     />
 
                                     <select
@@ -134,7 +134,7 @@
                                             disabled
                                             selected
                                         >
-                                            Choose Category
+                                            {{__('Choose Category')}}
                                         </option>
 
                                         <option
@@ -155,7 +155,7 @@
                                 </div>
 
                                 <div class="w-full sm:w-6/12">
-                                    <BreezeLabel for="city" value="City" />
+                                    <BreezeLabel for="city" :value="__('City')" />
 
                                     <select
                                         id="city"
@@ -172,7 +172,7 @@
                                             disabled
                                             selected
                                         >
-                                            Choose City
+                                            {{__('Choose City')}}
                                         </option>
 
                                         <option
@@ -194,7 +194,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel for="product" value="Product" />
+                                <BreezeLabel for="product" :value="__('Product')" />
 
                                 <MultiSelect
                                     :products="products_filtred"
@@ -219,7 +219,7 @@
                             <div class="mb-4">
                                 <BreezeLabel
                                     for="meta_title"
-                                    value="Meta Title"
+                                    :value="__('Meta Title')"
                                 />
 
                                 <BreezeInput
@@ -246,7 +246,7 @@
                             <div class="mb-4">
                                 <BreezeLabel
                                     for="meta_description"
-                                    value="Meta Description"
+                                    :value="__('Meta Description')"
                                 />
 
                                 <textarea
@@ -273,7 +273,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel for="slug" value="Slug" />
+                                <BreezeLabel for="slug" :value="__('Slug')" />
 
                                 <BreezeInput
                                     id="slug"
@@ -284,19 +284,25 @@
                                 />
                             </div>
 
-                            <div class="flex items-center justify-end mt-8">
+                            <div class="flex items-center justify-end gap-4 mt-8">
+                                <button @click.prevent="deleteListing"
+                                    class="text-rose-600 uppercase font-semibold text-sm border-b border-transparent hover:border-rose-600"
+                                >
+                                    {{ __('Delete') }}
+                                </button>
+
                                 <BreezeButton
                                     :class="{ 'opacity-25': form.processing }"
                                     :disabled="form.processing"
                                 >
-                                    Save
+                                    {{__('save')}}
                                 </BreezeButton>
                             </div>
                         </form>
 
                         <!-- Change Image -->
                         <div class="my-4">
-                            <BreezeLabel value="Picture"></BreezeLabel>
+                            <BreezeLabel :value="__('Picture')"></BreezeLabel>
 
                             <div class="flex items-center justify-between my-4">
                                 <input
@@ -310,7 +316,7 @@
                                     for="image"
                                     class="block sm:inline py-3 px-4 bg-transparent hover:bg-zinc-950 text-zinc-950 hover:text-zinc-50 border border-zinc-950 text-sm font-semibold rounded cursor-pointer"
                                 >
-                                    Choose Image
+                                    {{__('Select Picture')}}
                                 </label>
 
                                 <!--success message-->
@@ -348,7 +354,7 @@ import { Head, usePage, useForm, router } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const props = defineProps(["listing", "selectedProducts"]);
+const props = defineProps(["listing", "selectedProducts", "areYouSure"]);
 
 const page = usePage();
 
@@ -381,10 +387,17 @@ const submit = () => {
         onSuccess: () => {
             setTimeout(() => {
                 page.props.flash.success = null;
-            }, 4000);
+            }, 2500);
         },
     });
 };
+
+const deleteListing = () => {
+    router.delete(route('listing.delete', props.listing.id), {
+        onBefore: () => confirm(props.areYouSure),
+        onSuccess: () => setTimeout(() => { page.props.flash.success = null;}, 2500),
+    });
+}
 
 const unLinkProduct = (product) => {
     var index = form.product.indexOf(product);

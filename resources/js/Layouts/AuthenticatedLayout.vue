@@ -26,7 +26,7 @@
                         :active="route().current('dashboard')">
 
                         <span class="material-icons-round">dashboard</span>
-                        <span>{{ trans.primary_nav_dashboard }}</span>
+                        <span>{{ __('sidebar_dashboard') }}</span>
                     </BreezeNavLink>
                 </div>
 
@@ -37,7 +37,7 @@
                         :active="route().current('ads*')">
 
                         <span class="material-icons-outlined">campaign</span>
-                        <span>{{ trans.primary_nav_ads }}</span>
+                        <span>{{ __('sidebar_ads') }}</span>
                     </BreezeNavLink>
                 </div>
                 
@@ -48,7 +48,7 @@
                         :active="route().current('listing*')">
                         
                         <span class="material-icons-outlined">list_alt</span>
-                        <span>{{trans.primary_nav_listing}}</span>
+                        <span>{{__('sidebar_listing')}}</span>
                     </BreezeNavLink>
                 </div>
             </div>
@@ -91,15 +91,15 @@
                         </span>
 
                         <BreezeDropdownLink :href="route('ads')" method="get" as="button">
-                            {{ trans.modal_content_ads }}
+                            {{ __('modal_ads') }}
                         </BreezeDropdownLink>
 
                         <BreezeDropdownLink :href="route('profile.edit')" method="get" as="button">
-                            {{ trans.modal_content_profile }}
+                            {{ __('modal_profile') }}
                         </BreezeDropdownLink>
 
                         <BreezeDropdownLink :href="route('logout')" method="post" as="button">
-                            {{ trans.modal_content_logout }}
+                            {{ __('modal_logout') }}
                         </BreezeDropdownLink>
                     </template>
                 </BreezeDropdown>

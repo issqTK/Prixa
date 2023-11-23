@@ -38,7 +38,10 @@ class ListingController extends Controller
                         'city' => $query->city->name
                     ]);
 
-        return inertia('Listing/Display', ['listings' => $listings]);
+        return inertia('Listing/Display', [
+            'listings' => $listings,
+            'areYouSure' => __('Are you sure you want to delete this Listing?')
+        ]);
     }
 
     public function create() {
@@ -50,7 +53,11 @@ class ListingController extends Controller
         
         $selectedProducts = Product::whereIn('id', $listing->product_ids)->get(['id','name','category_id']);
 
-        return inertia('Listing/Edit', ['listing' => $listing, 'selectedProducts' => $selectedProducts]);
+        return inertia('Listing/Edit', [
+            'listing' => $listing, 
+            'selectedProducts' => $selectedProducts,
+            'areYouSure' => __('Are you sure you want to delete this Listing?')
+        ]);
     }
    
     public function store(Request $request) {
@@ -91,7 +98,7 @@ class ListingController extends Controller
 
         ]);
 
-        return redirect()->back()->with(['success' => 'Listing has been created successfuly']);
+        return redirect()->back()->with(['success' => __('Listing has been created successfuly')]);
     }
 
     public function update(Request $request, $listing) {
@@ -114,12 +121,13 @@ class ListingController extends Controller
             'city_id' => $request->city,
         ]);
 
-        return redirect()->route('listing')->with(['success' => 'Listing has been updated successfuly']);
+        return redirect()->route('listing')->with(['success' => __('Listing has been updated successfuly')]);
     }
 
     public function delete($listing) {
         Listing::find($listing)->delete();
-        return back()->with(['success' => 'Listing has been deleted successfuly']);
+        
+        return redirect()->route('listing')->with(['success' => __('Listing has been deleted successfuly')]);
     }
 
     public function listingViewer($slug) {

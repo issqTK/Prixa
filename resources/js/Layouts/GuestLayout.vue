@@ -37,7 +37,7 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                             />
                         </svg>
-                        <span>{{ trans.search_nav_btn }}</span>
+                        <span>{{ __('navbar_search') }}</span>
                     </BreezeNavLinkTop>
 
                     <BreezeNavLinkTop :href="route('dashboard')">
@@ -53,7 +53,7 @@
                                 d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
                             />
                         </svg>
-                        <span>{{ trans.dashboard_nav_btn }}</span>
+                        <span>{{ __('navbar_dashboard') }}</span>
                     </BreezeNavLinkTop>
 
                     <BreezeDropdown align="right" width="48">
@@ -76,13 +76,16 @@
                         </template>
 
                         <template #content>
+                            <span class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                {{ $page.props.auth.user.name }}
+                            </span>
+
                             <BreezeDropdownLink
-                                href="#"
-                                @click.prevent
+                                :href="route('ads')"
                                 method="get"
                                 as="button"
                             >
-                                {{ $page.props.auth.user.name }}
+                                {{ __('modal_ads') }}
                             </BreezeDropdownLink>
 
                             <BreezeDropdownLink
@@ -90,15 +93,7 @@
                                 method="get"
                                 as="button"
                             >
-                                {{ trans.profile_nav_btn }}
-                            </BreezeDropdownLink>
-
-                            <BreezeDropdownLink
-                                :href="route('ads')"
-                                method="get"
-                                as="button"
-                            >
-                                {{ trans.myAds_nav_btn }}
+                                {{ __('modal_profile') }}
                             </BreezeDropdownLink>
 
                             <BreezeDropdownLink
@@ -106,7 +101,7 @@
                                 method="post"
                                 as="button"
                             >
-                                {{ trans.logout_nav_btn }}
+                                {{ __('modal_logout') }}
                             </BreezeDropdownLink>
                         </template>
                     </BreezeDropdown>
@@ -137,7 +132,7 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                             />
                         </svg>
-                        <span>{{ trans.search_nav_btn }}</span>
+                        <span>{{ __('navbar_search') }}</span>
                     </BreezeNavLinkTop>
 
                     <BreezeNavLinkTop
@@ -157,7 +152,7 @@
                                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z"
                             ></path>
                         </svg>
-                        <span>{{ trans.login_nav_btn }}</span>
+                        <span>{{ __('navbar_login') }}</span>
                     </BreezeNavLinkTop>
 
                     <BreezeNavLinkTop
@@ -178,16 +173,16 @@
                                 d="M9.3 4h5.4l1.647 1.778H19.2c.99 0 1.8.8 1.8 1.778v10.666C21 19.2 20.19 20 19.2 20H4.8c-.99 0-1.8-.8-1.8-1.778V7.556c0-.978.81-1.778 1.8-1.778h2.853L9.3 4zM12 17.333c2.484 0 4.5-1.99 4.5-4.444 0-2.453-2.016-4.445-4.5-4.445s-4.5 1.992-4.5 4.445c0 2.453 2.016 4.444 4.5 4.444zm0-1.777c1.491 0 2.7-1.194 2.7-2.667 0-1.473-1.209-2.667-2.7-2.667s-2.7 1.194-2.7 2.667c0 1.473 1.209 2.667 2.7 2.667z"
                             ></path>
                         </svg>
-                        <span>{{ trans.createAd_nav_btn }}</span>
+                        <span>{{ __('navbar_create_ad') }}</span>
                     </BreezeNavLinkTop>
                 </div>
             </div>
         </div>
 
-        <div
-            class="w-full sm:max-w-2xl mt-6 bg-white shadow-md overflow-hidden sm:rounded-md"
-        >
+        <div class="w-full sm:max-w-2xl mt-6 bg-white shadow-md overflow-hidden sm:rounded-md">
+            
             <Carossel v-if="route().current('welcome')"></Carossel>
+
             <div class="px-8 py-6">
                 <slot />
             </div>

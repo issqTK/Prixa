@@ -65,22 +65,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     Route::get('ads', 'App\Http\Controllers\AdController@index')->name('ads');
     Route::get('ad/create', 'App\Http\Controllers\AdController@create')->name('ads.create');
     Route::get('ad/{ad}/edit', 'App\Http\Controllers\AdController@edit')->name('ads.edit');
-
     Route::post('ad/create', 'App\Http\Controllers\AdController@store')->name('ads.store');
     Route::put('ad/{id}/edit', 'App\Http\Controllers\AdController@update')->name('ads.update');
     Route::delete('ad/{id}/delete', 'App\Http\Controllers\AdController@delete')->name('ads.delete');
-
     Route::post('ad/{id}/upload-images', 'App\Http\Controllers\AdController@uploadImages')->name('ad.upload.images');
-    
-    # a refaire \->
-    Route::get('ad/image/{id}/delete', 'App\Http\Controllers\AdController@deleteImage')->name('ad.delete.image');
-    Route::put('ad/image/{id}/make-active', 'App\Http\Controllers\AdController@makeItActive')->name('make.it.active');
+    Route::get('image/{id}/delete', 'App\Http\Controllers\AdController@deleteImage')->name('ad.delete.image');
+    Route::put('image/{id}/make-active', 'App\Http\Controllers\AdController@makeItActive')->name('make.it.active');
 
     # Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/add-profile-picture', [ProfileController::class, 'addPicture']);
+    Route::post('/add-profile-picture', [ProfileController::class, 'addPicture'])->name('profile.add.picture');
     
     # Listing 
     Route::get('listing', 'App\Http\Controllers\ListingController@index')->name('listing');

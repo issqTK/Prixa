@@ -18,18 +18,12 @@ class AdController extends Controller
 {
     public function index() {
         return Inertia::render('Ads/List', [
-            'head' => __('head_ads'), 
-            'header' => __('header_ads'), 
             'areYouSure' => __('Are you sure you want to delete this ad?'),
-            'trans' => \Lang::get('adsList')
         ]);
     }
 
     public function create() {
         return Inertia::render('Ads/Create', [
-            'head' => __('head_ads'), 
-            'header' => __('header_ads'), 
-            'trans' => \Lang::get('adCreate'),
             'pictures_allowed' => __('only 8 pictures allowed!')
         ]);
     }
@@ -47,9 +41,6 @@ class AdController extends Controller
 
         return Inertia::render('Ads/Edit', [
             'ad' => $ads,
-            'head' => __('head_ads'), 
-            'header' => __('header_ads'), 
-            'trans' => \Lang::get('adEdit'),
             'areYouSure' => __('Are you sure you want to delete this ad?'),
             'pictures_allowed' => __('only 8 pictures allowed!')
         ]);

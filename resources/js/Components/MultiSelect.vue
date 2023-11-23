@@ -5,7 +5,7 @@
         :class="{'!border-red-500' : error}">
         <div v-if="selected.length == 0" class="flex items-center flex-auto flex-wrap">
             <div class="text-9 px-2">
-                Choose Products
+                {{__('Choose Product')}}
             </div>
         </div>
         <div v-else class="flex items-center flex-auto flex-wrap">

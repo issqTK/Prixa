@@ -40,9 +40,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'lang' => [
-                'authLayout' => \Lang::get('authLayout'),
                 'auth' => \Lang::get('auth'),
-                'ad' => \Lang::get('ad')
             ],
             'flash' => function () use ($request) {
                 return [
