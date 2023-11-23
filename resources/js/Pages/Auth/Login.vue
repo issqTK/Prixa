@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head :title="__('Log In')" />
 
         <div class="w-full py-3 md:w-10/12 mx-auto">
             <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -40,7 +40,7 @@ const submit = () => {
 
             <form @submit.prevent="submit">
                 <div>
-                    <InputLabel for="email" value="Email" />
+                    <InputLabel for="email" :value="__('Email')" />
 
                     <TextInput
                         id="email"
@@ -56,7 +56,7 @@ const submit = () => {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="password" value="Password" />
+                    <InputLabel for="password" :value="__('Password')" />
 
                     <TextInput
                         id="password"
@@ -73,7 +73,7 @@ const submit = () => {
                 <div class="block mt-4">
                     <label class="flex items-center">
                         <Checkbox name="remember" v-model:checked="form.remember" />
-                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                        <span class="ml-2 text-sm text-gray-600">{{__('Remember me')}}</span>
                     </label>
                 </div>
 
@@ -84,19 +84,19 @@ const submit = () => {
                             :href="route('password.request')"
                             class="font-semibold text-sm text-slate-500 hover:text-slate-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Forgot your password?
+                            {{__('Forgot your password?') }}
                         </Link>
                         <Link
                             :href="route('register')"
                             class="font-semibold text-sm text-slate-500 hover:text-slate-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Not Rogistred yet?
+                            {{ __('Not Rogistred yet?') }}
                         </Link>
 
                     </div>
 
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Log in
+                        {{ __('Log In') }}
                     </PrimaryButton>
                 </div>
             </form>

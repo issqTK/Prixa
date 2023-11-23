@@ -82,36 +82,23 @@ return [
     'Cancel' => 'Cancel',
     'Delete Account' => 'Delete Account',
 
+    'Remember me' => 'Remember me',
+    'Forgot your password?' => 'Forgot your password?',
+    'Not Rogistred yet?' => 'Not Rogistred yet?',
+    'Log In' => 'Log In',
+    'Register' => 'Register',
+    'Password' => 'Password',
+    'Already registered?' => 'Already registered?',
+    'Reset Password' => 'Reset Password',
+    'Email Verification' => 'Email Verification',
+    'Log Out' => 'Log Out',
+    'Resend Verification Email' => 'Resend Verification Email',
 
-    //__Form inputs
-    'name_label' => 'Full Name',
-    'email_label' => 'Email Address',
-    'password_label' => 'Password',
-    'password_confirm_label' => 'Confirm Password',
-    'already_registered_label' => 'Already registered?',
-    'remember_me_label' => 'Remember me',
-    'forget_password_label' => 'Forgot your password?',
+    'A new verification link has been sent to the email address you provided during registration.' => 'A new verification link has been sent to the email address you provided during registration.',
+    'Thanks for signing up! could you verify your email' => 'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.',
 
-    //__Form buttons
-    'register_label' => 'Register',
-    
-    
-    'password_reset_link_label' => 'Email Password Reset Link',
-    'reset_password_label' => 'Reset Password',
-    'confirm_label' => 'Confirm',
-
-    //__Headings
-    'forgot_password_heading' => 'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.',
-    'confirm_password_heading' => 'This is a secure area of the application. Please confirm your password before continuing.',
-
-
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have emailed your password reset link!',
-    'throttled' => 'Please wait before retrying.',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that email address.",
+    'Forgot Password' => 'Forgot Password',
+    'Email Password Reset Link' => 'Email Password Reset Link',
+    'Forgot your password? No problem.' => 'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.',
+    'This is a secure area of the application' => 'This is a secure area of the application. Please confirm your password before continuing',
 ];

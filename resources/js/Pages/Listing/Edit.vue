@@ -4,27 +4,22 @@
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{__('Listing Manager')}}
+                {{ __('Listing Manager') }}
             </h1>
         </template>
+
         <div class="py-9">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg">
-                    <h2
-                        class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200"
-                    >
-                        <span class="material-icons-outlined"
-                            >published_with_changes</span
-                        >
-                        {{__('Edit Listing')}}
+                    <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
+                        <span class="material-icons-outlined">published_with_changes</span>
+                        {{ __('Edit Listing') }}
                     </h2>
 
                     <div class="p-6 bg-white">
                         <!-- msg success -->
-                        <div
-                            v-if="$page.props.flash.success"
-                            class="w-full rounded mb-4 p-6 text-center text-lg bg-emerald-500 text-white font-semibold"
-                        >
+                        <div v-if="$page.props.flash.success"
+                            class="w-full rounded mb-4 p-6 text-center text-lg bg-emerald-500 text-white font-semibold">
                             {{ $page.props.flash.success }}
                         </div>
 
@@ -32,124 +27,73 @@
                             <div class="mb-4">
                                 <BreezeLabel for="title" :value="__('Title')" />
 
-                                <BreezeInput
-                                    id="title"
-                                    type="text"
+                                <BreezeInput 
+                                    id="title" 
+                                    type="text" 
                                     class="mt-1 block w-full"
-                                    @keyup="form.clearErrors('title')"
-                                    :class="{
-                                        'border-red-500': form.errors.title,
-                                    }"
-                                    v-model="form.title"
-                                />
+                                    @keyup="form.clearErrors('title')" 
+                                    :class="{'border-red-500': form.errors.title}" 
+                                    v-model="form.title" />
 
-                                <span
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                    v-if="form.errors.title"
-                                >
-                                    {{ form.errors.title }}</span
-                                >
+                                <span class="mt-1 text-xs text-red-500 font-semibold" v-if="form.errors.title">
+                                    {{ form.errors.title }}</span>
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel
-                                    for="description_head"
-                                    :value="__('Description Header')"
-                                />
-                                <textarea
-                                    id="description_head"
-                                    cols="30"
-                                    rows="4"
-                                    @keyup="
-                                        form.clearErrors('description_head')
-                                    "
-                                    :class="{
-                                        'border-red-500':
-                                            form.errors.description_head,
-                                    }"
+                                <BreezeLabel for="description_head" :value="__('Description Header')" />
+
+                                <textarea 
+                                    id="description_head" 
+                                    cols="30" 
+                                    rows="4" 
+                                    @keyup="form.clearErrors('description_head')" 
+                                    :class="{'border-red-500':form.errors.description_head}" 
                                     v-model="form.description_head"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                 />
 
-                                <span
-                                    v-if="form.errors.description_head"
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                >
+                                <span v-if="form.errors.description_head" class="mt-1 text-xs text-red-500 font-semibold">
                                     {{ form.errors.description_head }}
                                 </span>
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel
-                                    for="description_foot"
-                                    :value="__('Description Footer')"
-                                />
-                                <textarea
-                                    id="description_foot"
-                                    cols="30"
-                                    rows="4"
-                                    @keyup="
-                                        form.clearErrors('description_foot')
-                                    "
-                                    :class="{
-                                        'border-red-500':
-                                            form.errors.description_foot,
-                                    }"
+                                <BreezeLabel for="description_foot" :value="__('Description Footer')" />
+
+                                <textarea 
+                                    id="description_foot" 
+                                    cols="30" 
+                                    rows="4" 
+                                    @keyup="form.clearErrors('description_foot')" 
+                                    :class="{'border-red-500':form.errors.description_foot}" 
                                     v-model="form.description_foot"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                 />
 
-                                <span
-                                    v-if="form.errors.description_foot"
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                >
+                                <span v-if="form.errors.description_foot" class="mt-1 text-xs text-red-500 font-semibold">
                                     {{ form.errors.description_foot }}
                                 </span>
                             </div>
 
-                            <div
-                                class="w-full flex flex-col sm:flex-row sm:justify-between mb-4"
-                            >
-                                <div
-                                    class="w-full sm:w-6/12 sm:mr-4 mb-4 sm:mb-0"
-                                >
-                                    <BreezeLabel
-                                        for="category"
-                                        :value="__('Category')"
-                                    />
+                            <div class="w-full flex flex-col sm:flex-row sm:justify-between mb-4">
+                                <div class="w-full sm:w-6/12 sm:mr-4 mb-4 sm:mb-0">
+                                    <BreezeLabel for="category" :value="__('Category')" />
 
-                                    <select
-                                        id="category"
-                                        v-model="form.category"
-                                        :class="{
-                                            'border-red-500':
-                                                form.errors.category,
-                                        }"
+                                    <select 
+                                        id="category" 
+                                        v-model="form.category" 
+                                        :class="{'border-red-500':form.errors.category}" 
                                         @change="loadProducts"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     >
-                                        <option
-                                            value=""
-                                            hidden
-                                            disabled
-                                            selected
-                                        >
-                                            {{__('Choose Category')}}
-                                        </option>
+                                        <option value="" hidden disabled selected>{{ __('Choose Category') }}</option>
 
-                                        <option
-                                            v-for="cat in categories"
-                                            :key="cat.id"
-                                            :value="cat.id"
-                                        >
+                                        <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                                             {{ cat.name }}
                                         </option>
                                     </select>
 
-                                    <span
-                                        class="mt-1 text-xs text-red-500 font-semibold"
-                                        v-if="form.errors.category"
-                                    >
+                                    <span class="mt-1 text-xs text-red-500 font-semibold" v-if="form.errors.category">
                                         {{ form.errors.category }}
                                     </span>
                                 </div>
@@ -157,37 +101,22 @@
                                 <div class="w-full sm:w-6/12">
                                     <BreezeLabel for="city" :value="__('City')" />
 
-                                    <select
-                                        id="city"
-                                        v-model="form.city"
-                                        :class="{
-                                            'border-red-500': form.errors.city,
-                                        }"
+                                    <select 
+                                        id="city" 
+                                        v-model="form.city" 
+                                        :class="{'border-red-500': form.errors.city}" 
                                         @change="form.clearErrors('city')"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                    >
-                                        <option
-                                            value=""
-                                            hidden
-                                            disabled
-                                            selected
                                         >
-                                            {{__('Choose City')}}
-                                        </option>
+                                        
+                                        <option value="" hidden disabled selected>{{ __('Choose City') }}</option>
 
-                                        <option
-                                            v-for="city in cities"
-                                            :key="city.id"
-                                            :value="city.id"
-                                        >
+                                        <option v-for="city in cities" :key="city.id" :value="city.id">
                                             {{ city.name }}
                                         </option>
                                     </select>
 
-                                    <span
-                                        class="mt-1 text-xs text-red-500 font-semibold"
-                                        v-if="form.errors.city"
-                                    >
+                                    <span class="mt-1 text-xs text-red-500 font-semibold" v-if="form.errors.city">
                                         {{ form.errors.city }}
                                     </span>
                                 </div>
@@ -196,78 +125,51 @@
                             <div class="mb-4">
                                 <BreezeLabel for="product" :value="__('Product')" />
 
-                                <MultiSelect
-                                    :products="products_filtred"
+                                <MultiSelect 
+                                    :products="products_filtred" 
                                     :selectedProducts="props.selectedProducts"
-                                    @selectProduct="
-                                        (product) => form.product.push(product)
-                                    "
-                                    @unSelectProduct="unLinkProduct"
-                                    :error="form.errors.product"
+                                    @selectProduct="(product) => form.product.push(product)" 
+                                    @unSelectProduct="unLinkProduct" 
+                                    :error="form.errors.product" 
                                     :reset="reset"
                                     @reseted="reseted()"
                                 ></MultiSelect>
 
-                                <span
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                    v-if="form.errors.product"
-                                >
-                                    {{ form.errors.product }}</span
-                                >
+                                <span class="mt-1 text-xs text-red-500 font-semibold" v-if="form.errors.product">
+                                    {{ form.errors.product }}</span>
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel
-                                    for="meta_title"
-                                    :value="__('Meta Title')"
-                                />
+                                <BreezeLabel for="meta_title" :value="__('Meta Title')" />
 
-                                <BreezeInput
-                                    id="meta_title"
-                                    type="text"
-                                    class="mt-1 w-full bg-zinc-100"
+                                <BreezeInput 
+                                    id="meta_title" 
+                                    type="text" 
+                                    class="mt-1 w-full bg-zinc-100" 
                                     disabled
-                                    @keyup="generateSlug"
-                                    :class="{
-                                        'border-red-500':
-                                            form.errors.meta_title,
-                                    }"
-                                    v-model="form.meta_title"
+                                    @keyup="generateSlug" 
+                                    :class="{'border-red-500':form.errors.meta_title}" 
+                                    v-model="form.meta_title" 
                                 />
 
-                                <span
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                    v-if="form.errors.meta_title"
-                                >
-                                    {{ form.errors.meta_title }}</span
-                                >
+                                <span class="mt-1 text-xs text-red-500 font-semibold" v-if="form.errors.meta_title">
+                                    {{ form.errors.meta_title }}</span>
                             </div>
 
                             <div class="mb-4">
-                                <BreezeLabel
-                                    for="meta_description"
-                                    :value="__('Meta Description')"
-                                />
+                                <BreezeLabel for="meta_description" :value="__('Meta Description')" />
 
-                                <textarea
-                                    id="meta_description"
-                                    cols="30"
-                                    rows="4"
-                                    @keyup="
-                                        form.clearErrors('meta_description')
-                                    "
-                                    :class="{
-                                        'border-red-500':
-                                            form.errors.meta_description,
-                                    }"
+                                <textarea 
+                                    id="meta_description" 
+                                    cols="30" 
+                                    rows="4" 
+                                    @keyup="form.clearErrors('meta_description')"
+                                    :class="{'border-red-500': form.errors.meta_description}" 
                                     v-model="form.meta_description"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
                                 />
 
-                                <span
-                                    v-if="form.errors.meta_description"
-                                    class="mt-1 text-xs text-red-500 font-semibold"
-                                >
+                                <span v-if="form.errors.meta_description" class="mt-1 text-xs text-red-500 font-semibold">
                                     {{ form.errors.meta_description }}
                                 </span>
                             </div>
@@ -275,27 +177,23 @@
                             <div class="mb-4">
                                 <BreezeLabel for="slug" :value="__('Slug')" />
 
-                                <BreezeInput
-                                    id="slug"
-                                    type="text"
-                                    class="mt-1 block w-full bg-zinc-100"
+                                <BreezeInput 
+                                    id="slug" 
+                                    type="text" 
+                                    class="mt-1 block w-full bg-zinc-100" 
                                     disabled
-                                    v-model="form.slug"
+                                    v-model="form.slug" 
                                 />
                             </div>
 
                             <div class="flex items-center justify-end gap-4 mt-8">
                                 <button @click.prevent="deleteListing"
-                                    class="text-rose-600 uppercase font-semibold text-sm border-b border-transparent hover:border-rose-600"
-                                >
+                                    class="text-rose-600 uppercase font-semibold text-sm border-b border-transparent hover:border-rose-600">
                                     {{ __('Delete') }}
                                 </button>
 
-                                <BreezeButton
-                                    :class="{ 'opacity-25': form.processing }"
-                                    :disabled="form.processing"
-                                >
-                                    {{__('save')}}
+                                <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                    {{ __('save') }}
                                 </BreezeButton>
                             </div>
                         </form>
@@ -305,35 +203,22 @@
                             <BreezeLabel :value="__('Picture')"></BreezeLabel>
 
                             <div class="flex items-center justify-between my-4">
-                                <input
-                                    id="image"
-                                    type="file"
-                                    class="hidden"
-                                    @change="displayImage($event)"
-                                />
+                                <input id="image" type="file" class="hidden" @change="displayImage($event)" />
 
-                                <label
-                                    for="image"
-                                    class="block sm:inline py-3 px-4 bg-transparent hover:bg-zinc-950 text-zinc-950 hover:text-zinc-50 border border-zinc-950 text-sm font-semibold rounded cursor-pointer"
-                                >
-                                    {{__('Select Picture')}}
+                                <label for="image"
+                                    class="block sm:inline py-3 px-4 bg-transparent hover:bg-zinc-950 text-zinc-950 hover:text-zinc-50 border border-zinc-950 text-sm font-semibold rounded cursor-pointer">
+                                    {{ __('Select Picture') }}
                                 </label>
 
                                 <!--success message-->
-                                <div
-                                    v-if="$page.props.flash.successTwo"
-                                    class="block sm:inline sm:float-right mt-2 sm:mt-0 rounded px-4 py-2 text-center text-sm bg-emerald-500 text-white font-semibold"
-                                >
+                                <div v-if="$page.props.flash.successTwo"
+                                    class="block sm:inline sm:float-right mt-2 sm:mt-0 rounded px-4 py-2 text-center text-sm bg-emerald-500 text-white font-semibold">
                                     {{ $page.props.flash.successTwo }}
                                 </div>
                             </div>
 
-                            <div
-                                class="inline-block mt-4 p-3 bg-zinc-100 rounded"
-                            >
-                                <div
-                                    class="relative w-28 h-28 bg-white rounded overflow-hidden"
-                                >
+                            <div class="inline-block mt-4 p-3 bg-zinc-100 rounded">
+                                <div class="relative w-28 h-28 bg-white rounded overflow-hidden">
                                     <img :src="image" class="img" />
                                 </div>
                             </div>
@@ -395,7 +280,7 @@ const submit = () => {
 const deleteListing = () => {
     router.delete(route('listing.delete', props.listing.id), {
         onBefore: () => confirm(props.areYouSure),
-        onSuccess: () => setTimeout(() => { page.props.flash.success = null;}, 2500),
+        onSuccess: () => setTimeout(() => { page.props.flash.success = null; }, 2500),
     });
 }
 

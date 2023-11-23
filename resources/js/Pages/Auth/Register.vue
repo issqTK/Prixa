@@ -23,11 +23,11 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head :title="__('Register')" />
 
         <form @submit.prevent="submit" class="w-full md:w-10/12 mx-auto">
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" :value="__('Name')" />
 
                 <TextInput
                     id="name"
@@ -43,7 +43,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" :value="__('Email')" />
 
                 <TextInput
                     id="email"
@@ -58,7 +58,7 @@ const submit = () => {
             </div>
             
             <div class="mt-4">
-                <InputLabel for="phone" value="Phone" />
+                <InputLabel for="phone" :value="__('Phone')" />
 
                 <TextInput
                     id="phone"
@@ -73,7 +73,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" :value="__('Password')" />
 
                 <TextInput
                     id="password"
@@ -88,7 +88,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <InputLabel for="password_confirmation" :value="__('Confirm Password')" />
 
                 <TextInput
                     id="password_confirmation"
@@ -107,11 +107,11 @@ const submit = () => {
                     :href="route('login')"
                     class="font-semibold text-sm text-slate-500 hover:text-slate-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Already registered?
+                    {{__('Already registered?')}}
                 </Link>
 
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    {{ __('Register') }}
                 </PrimaryButton>
             </div>
         </form>
