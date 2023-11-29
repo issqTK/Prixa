@@ -1,7 +1,8 @@
 <template>
-    <Head title="Create New Ads" />
+    <Head :title="__('Create new Ads')" />
+
     <div class="overflow-auto">
-        <h1 class="text-2xl font-bold capitalize mb-6"> Create new Ads </h1>
+        <h1 class="text-2xl font-bold capitalize mb-6"> {{__('Create new Ads')}} </h1>
 
         <form>
             <FirstParty 
@@ -38,15 +39,15 @@
         </form>
 
         <div v-show="this.next == 6" class="md:w-10/12 px-4 py-6 text-center rounded mx-auto overflow-auto bg-white">
-            <h2 class="text-base font-bold uppercase mb-4">processing your request...please wait</h2>
+            <h2 class="text-base font-bold uppercase mb-4">{{ __('processing your request...please wait') }}</h2>
             <span class="w-4 h-4 table mx-auto rounded-full border-2 border-slate-700 border-dotted animate-spin"></span>
         </div>
 
-        <btn @click="getNext" v-show="this.next != 6" class="mt-6 py-4 px-6 float-right">Next</btn>
+        <btn @click="getNext" v-show="this.next != 6" class="mt-6 py-4 px-6 float-right">{{__('Next')}}</btn>
         
         <btn @click="getPrevieus" 
             class="bg-slate-300 hover:bg-slate-400 mt-6 py-4 px-6 float-left">
-            Back
+            {{__('Back')}}
         </btn>
 
     </div>
@@ -133,12 +134,12 @@ export default {
             if (this.next == 1) {
 
                 if (this.form.product == null) {
-                    this.errors.product = 'choosing product is required!';
+                    this.errors.product = this.__('Product required!');
                     return
                 } else this.errors.product = null
 
                 if (this.form.city == null) {
-                    this.errors.city = 'choosing city is required!';
+                    this.errors.city = this.__('City required!');
                     return
                 } else this.errors.city = null
 
@@ -148,7 +149,7 @@ export default {
             else if (this.next == 2) {
 
                 if (!text.test(this.form.title) || this.form.title == null) {
-                    this.errors.title = 'title is required!';
+                    this.errors.title = this.__('Title required!');
                     return
                 } else {
                     this.errors.title = null;
@@ -156,19 +157,19 @@ export default {
                 }
 
                 if (!textarea.test(this.form.description) || this.form.description == null) {
-                    this.errors.description = 'description is required!';
+                    this.errors.description = this.__('Description required!');
                     return
                 } else this.errors.description = null;
 
                 if (!number.test(this.form.price)) {
-                    this.errors.price = 'price is required!';
+                    this.errors.price = this.__('Price required!');
                     return
                 } else this.errors.price = null;
 
                 this.next++;
             }
             else if (this.next == 3) {
-                if (this.form.images.length == 0) this.errors.image = 'you are required to upload pictures!';
+                if (this.form.images.length == 0) this.errors.image = this.__('Upload pictures Required!');
                 else {
                     this.errors.image = null;
                     this.next++;
@@ -177,25 +178,25 @@ export default {
             else if (this.next == 4) {
 
                 if (!phone.test(this.form.phone)) {
-                    this.errors.phone = 'phone is required! (10 digits)';
+                    this.errors.phone = this.__('Phone required! (10 digits)');
                     return;
                 } else {
                     await axios
                         .get('/api/phone-already-exist/' + this.form.phone)
                         .then((response) => {
                             if (response.data.exist == true)
-                                this.errors.phone = 'phone already exist!';
+                                this.errors.phone = this.__('Phone already exist!');
                             else this.errors.phone = null;
                         });
                 }
 
                 if (this.form.whatsapp.length > 0 && !phone.test(this.form.whatsapp)) {
-                    this.errors.whatsapp = 'whatsapp optional! (10 digits)';
+                    this.errors.whatsapp = this.__('Whatsapp optional! (10 digits)');
                     return;
                 } else this.errors.whatsapp = null;
 
                 if (this.form.shop.length > 0 && !url_pattern.test(this.form.shop)) {
-                    this.errors.shop = 'shop url optional! (valid url)';
+                    this.errors.shop = this.__('shop url optional! (valid url)');
                     return;
                 } else this.errors.shop = null;
 
@@ -204,19 +205,19 @@ export default {
             else if (this.next == 5) {
 
                 if (!fullName.test(this.form.fullName) || this.form.fullName == null) {
-                    this.errors.fullName = 'full name required!';
+                    this.errors.fullName = this.__('Name required!');
                     return
                 } else this.errors.fullName = null;
 
                 if (!email.test(this.form.email)) {
-                    this.errors.email = 'email is required! (valid address email)';
+                    this.errors.email = this.__('Email required! (valid address email)');
                     return;
                 } else {
                     await axios
                         .get('api/email-already-exist/' + this.form.email)
                         .then((response) => {
                             if (response.data.exist) {
-                                this.errors.email = 'email already exist!';
+                                this.errors.email = this.__('Email already exist!');
                                 return;
                             }
                             else this.errors.email = null;
@@ -224,12 +225,12 @@ export default {
                 }
 
                 if (this.form.password == null || this.form.password.length <= 7) {
-                    this.errors.password = 'password is required! (minimum 7 characters)';
+                    this.errors.password = this.__('Password required! (minimum 7 characters)');
                     return;
                 } else this.errors.password = null;
 
                 if (this.form.passwordConfirm != this.form.password) {
-                    this.errors.passwordConfirm = 'password confirmation does not match!';
+                    this.errors.passwordConfirm = this.__('Password confirmation does not match!');
                     return;
                 } else this.errors.passwordConfirm = null;
 

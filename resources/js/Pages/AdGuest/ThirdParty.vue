@@ -11,7 +11,7 @@
                     <path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                 </svg>
                 
-                <span>Choose Image</span>
+                <span>{{__('Choose Images')}}</span>
             </label>
 
             <span v-show="errors" class="text-sm text-red-400 font-semibold">{{errors}}</span>
@@ -20,7 +20,7 @@
 
         <hr> 
 
-        <span class="text-gray-700 text-sm capitalize">Recommended image size square of (320 x 320 px) </span>
+        <span class="text-gray-700 text-sm capitalize">{{ __('Recommended image size square of (320 x 320 px)') }}</span>
 
         <div class="grid grid-cols-4 w-full gap-3 p-4 justify-center" >
             <div v-for="(image, index) in images" :key="index" class="h-24 sm:h-32 flex items-center justify-center bg-slate-200 overflow-hidden rounded" >

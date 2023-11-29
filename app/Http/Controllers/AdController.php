@@ -260,20 +260,5 @@ class AdController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function adViewer($slug) {
-        $ad = Ad::where('slug', $slug)->first();
-
-        if(!$ad) return redirect('/');
-
-        $city = $ad->city;
-        $product = $ad->product;
-        $images = $ad->images;
-
-        $user = $ad->user;
-
-
-        return Inertia::render('AdView', [
-            'ad' => $ad,
-        ]);
-    }
+    
 }

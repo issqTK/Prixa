@@ -9,22 +9,7 @@ use App\Models\Ad;
 use App\Models\Category;
 use App\Models\Listing;
 
-Route::get('/', function () { 
-    $ads = Ad::with(['images' => function($active){
-            $active->select('ad_id','source')->where('active', 1);
-        }])
-        ->select('id','title', 'description', 'price', 'slug')
-        ->latest()
-        ->take(9)
-        ->get();
-
-    $listings = Listing::latest()->get();
-
-    return Inertia::render('Welcome', [
-        'ads' => $ads,
-        'listings' => $listings,
-    ]);
-})->name('welcome');
+Route::get('/', 'App\Http\Controllers\frontController@index')->name('welcome');
 
 Route::get('create-new-ads', function() { return Inertia::render('AdGuest/create'); })->name('guest.createAd');
 
@@ -33,33 +18,7 @@ Route::post('store-new-ads', 'App\Http\Controllers\AdController@storeNewAd');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     
-    Route::get('/dashboard', function () { 
-        $totalAds = Ad::query()
-            ->when(!Auth::user()->admin, function($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->count();
-
-        $activeAds = Ad::query()
-            ->when(!Auth::user()->admin, function($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->where('state', 'Valid')
-            ->count();
-
-        $inactiveAds = Ad::query()
-            ->when(!Auth::user()->admin, function($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->where('state', '!=', 'Valid')
-            ->count();
-
-        return Inertia::render('Dashboard', [
-            'totalAds' => $totalAds,
-            'activeAds' => $activeAds,
-            'inactiveAds' => $inactiveAds,
-        ]);
-    })->middleware('verified')->name('dashboard');   
+    Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware('verified')->name('dashboard');   
     
     # Annonce
     Route::get('ads', 'App\Http\Controllers\AdController@index')->name('ads');
@@ -79,24 +38,31 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     Route::post('/add-profile-picture', [ProfileController::class, 'addPicture'])->name('profile.add.picture');
     
     # Listing 
-    Route::get('listing', 'App\Http\Controllers\ListingController@index')->name('listing');
+    Route::get('listings', 'App\Http\Controllers\ListingController@index')->name('listing');
     Route::get('listing/create', 'App\Http\Controllers\ListingController@create')->name('listing.create');
     Route::get('listing/{listing}/edit', 'App\Http\Controllers\ListingController@edit')->name('listing.edit');
     Route::post('listing/create', 'App\Http\Controllers\ListingController@store')->name('listing.create.store');
     Route::put('listing/{listing}/edit', 'App\Http\Controllers\ListingController@update')->name('listing.edit.update');
     Route::delete('listing/{listing}/delete', 'App\Http\Controllers\ListingController@delete')->name('listing.delete');
+
+    # Setting
+    Route::get('settings', 'App\Http\Controllers\SettingController@index')->name('setting');
+    Route::delete('product/{product}', 'App\Http\Controllers\SettingController@deleteProduct')->name('product.delete');
+    Route::post('product/{category}', 'App\Http\Controllers\SettingController@createProduct')->name('product.create');
+    Route::put('category/{id}', 'App\Http\Controllers\SettingController@updateCategory')->name('category.update');
+    Route::delete('category/{id}', 'App\Http\Controllers\SettingController@deleteCategory')->name('category.delete');
+    Route::post('category/{category}', 'App\Http\Controllers\SettingController@createCategory')->name('category.create');
+    
+    Route::delete('city/{city}', 'App\Http\Controllers\SettingController@deleteCity')->name('city.delete');    
+    Route::post('city/{city}', 'App\Http\Controllers\SettingController@createCity')->name('city.create');
 });
 
-Route::get('/search', function(Request $request) {
-    return Inertia::render('Search');
-})->name('search');
+Route::get('/search', function(Request $request) { return Inertia::render('Search'); })->name('search');
 
 require __DIR__.'/auth.php';
 
-Route::get('/listing/{slug}', 'App\Http\Controllers\ListingController@listingViewer')->name('listing.view');
+Route::get('/ads/{slug}', 'App\Http\Controllers\frontController@adViewer')->name('ad.view');
 
-Route::get('/{slug}', 'App\Http\Controllers\AdController@adViewer')->name('ad.view');
+Route::get('/{slug}', 'App\Http\Controllers\frontController@listingViewer')->name('listing.view');
 
-Route::fallback(function () {
-    echo 'opss you may been lost <a href="/">back to home page</a>';
-});
+Route::fallback(function () { abort(404); });

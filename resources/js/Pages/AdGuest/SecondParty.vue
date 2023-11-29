@@ -3,7 +3,7 @@
         
         <div>
             <label for="title" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Title 
+                {{__('Title')}} 
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.title" class="text-sm text-red-400 ">{{this.errors.title}}</span>
@@ -16,12 +16,12 @@
                 id="title" 
                 class="w-full rounded border-gray-200" 
                 :class="classes"
-                placeholder="Title full of keywords">
+                />
         </div>
 
         <div>
             <label for="description" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Description
+                {{ __('Description') }}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.description" class="text-sm text-red-400 ">{{this.errors.description}}</span>
@@ -35,13 +35,12 @@
                 :class="classes"
                 cols="30" 
                 rows="6" 
-                placeholder="Describe your listing with keywords"
             ></textarea>
         </div>
 
         <div>
             <label for="price" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Price
+                {{ __('Price') }}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.price" class="text-sm text-red-400 ">{{this.errors.price}}</span>
@@ -52,7 +51,6 @@
                 :value="this.price"
                 type="number" 
                 id="price" 
-                placeholder="Dhs" 
                 class="w-full rounded border-gray-200"
                 :class="classes">
         </div>

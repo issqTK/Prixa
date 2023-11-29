@@ -38,14 +38,14 @@ class ListingController extends Controller
                         'city' => $query->city->name
                     ]);
 
-        return inertia('Listing/Display', [
+        return inertia()->render('Listing/Display', [
             'listings' => $listings,
             'areYouSure' => __('Are you sure you want to delete this Listing?')
         ]);
     }
 
     public function create() {
-        return inertia('Listing/Create');
+        return inertia()->render('Listing/Create');
     }
    
     public function edit($id) {
@@ -53,7 +53,7 @@ class ListingController extends Controller
         
         $selectedProducts = Product::whereIn('id', $listing->product_ids)->get(['id','name','category_id']);
 
-        return inertia('Listing/Edit', [
+        return inertia()->render('Listing/Edit', [
             'listing' => $listing, 
             'selectedProducts' => $selectedProducts,
             'areYouSure' => __('Are you sure you want to delete this Listing?')
@@ -130,12 +130,5 @@ class ListingController extends Controller
         return redirect()->route('listing')->with(['success' => __('Listing has been deleted successfuly')]);
     }
 
-    public function listingViewer($slug) {
-        $listing = Listing::where('slug', $slug)
-        ->first();
-
-        if(!$listing) return redirect('/');
-
-        return Inertia::render('Listing', ['listing' => $listing]);
-    }
+   
 }

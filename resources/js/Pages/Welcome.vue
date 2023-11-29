@@ -13,9 +13,9 @@ defineOptions({
     <Head title="Welcome" />
 
     <div class="flex flex-col gap-4 mb-8">
-        <h2 class="text-2xl font-bold">New Arrivals</h2>
+        <h2 class="text-2xl font-bold">{{__('New Arrivals')}}</h2>
 
-        <div id="latest" class="flex flex-wrap justify-start items-start p-4">
+        <div v-if="ads.length > 0" id="latest" class="flex flex-wrap justify-start items-start p-4">
             <Link
                 v-for="(ad, index) in ads"
                 :key="index"
@@ -58,12 +58,14 @@ defineOptions({
                 </p>
             </Link>
         </div>
+        
+        <div v-else>{{__('No Ads To List Yet!')}}</div>
     </div>
 
     <div class="flex flex-col gap-4">
-        <h2 class="text-2xl font-bold">Which phone is right for you?</h2>
+        <h2 class="text-2xl font-bold">{{__('Which phone is right for you?')}}</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-4">
+        <div v-if="listings.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-4">
             <Link
                 v-for="(listing, index) in listings"
                 :key="index"
@@ -72,27 +74,17 @@ defineOptions({
                 class="p-6 rounded-lg shadow hover:shadow-lg flex gap-4 scale-100 motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500 cursor-pointer"
             >
                 <div class="flex flex-col gap-1.5 w-full flex-1">
-                    <div class="h-16 w-16">
-                        <img
-                            :src="'/storage/images/listings/' + listing.avatar"
-                            draggable="false"
-                        />
-                    </div>
+                    <div class="flex items-center gap-4">
 
-                    <h2
-                        class="mt-6 text-xl font-semibold text-gray-900 dark:text-white"
-                    >
-                        {{ listing.title }}
-                    </h2>
+                        <img :src="'/storage/images/listings/' + listing.avatar" draggable="false" class="h-16 w-16"/>
+
+                        <h2 class="font-semibold text-gray-900 dark:text-white"> {{ listing.title }} </h2>
+                    </div>
 
                     <p
                         class="mt-4 text-gray-700 dark:text-gray-400 text-sm leading-relaxed flex flex-col justify-between gap-1 flex-1"
                     >
                         {{ listing.description_header }}
-
-                        <span class="font-semibold"
-                            >Explore more </span
-                        >
                     </p>
                 </div>
 
@@ -111,6 +103,8 @@ defineOptions({
                 </svg>
             </Link>
         </div>
+
+        <div v-else>{{ __('No Listings To List Yet!') }}</div>
     </div>
 </template>
 

@@ -17,7 +17,7 @@ class ApiController extends Controller
     }
  
     public function categoriesAll() {
-        return Category::all();
+        return Category::withCount('products')->get();
     }
 
     public function productsAll() {
@@ -33,7 +33,7 @@ class ApiController extends Controller
     }
     
     public function filterProductByCat($id) {
-        return Product::where('category_id', $id)->get(['id', 'name']);
+        return Product::where('category_id', $id)->get();
     }
 
     public function phoneExist(User $user, $phone) {

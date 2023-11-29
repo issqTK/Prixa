@@ -3,7 +3,7 @@
         
         <div class="relative">
             <label for="productName" class="flex gap-2 items-center font-semibold text-gray-900">
-                Product To List 
+                {{__('Product')}} 
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.product" class="text-sm text-red-400 ">{{this.errors.product}}</span>
@@ -47,7 +47,7 @@
 
         <div>
             <label for="city" class="flex gap-2 items-center font-semibold text-gray-900">
-                City
+                {{__('City')}}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.city" class="text-sm text-red-400 ">{{this.errors.city}}</span>
@@ -59,7 +59,7 @@
                 id="city" 
                 :class="classes"
                 class="w-full rounded border-gray-200 cursor-pointer text-gray-700">
-                <option selected disabled value="null"> Choose Your City </option>
+                <option selected disabled value="null">{{__('Choose City')}}</option>
                 <option v-for="(city,index) in cities" :key="index"  :value="city.id">{{city.name}}</option>
             </select>
             

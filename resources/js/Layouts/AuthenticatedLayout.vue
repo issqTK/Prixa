@@ -9,15 +9,9 @@
         <nav :class="{ '!left-0': showingNavigation }" class="fixed w-64 -left-64 md:left-0 top-0 bottom-0 transition-all ease-in-out duration-700 z-10 bg-sun-set bg-cover" >
             <div class="absolute top-0 left-0 bottom-0 right-0 px-4" style="background:rgb(20, 19, 19,0.8);">
                 <!-- Logo -->
-                <div class="my-4">
-                    <Link :href="route('welcome')">
-                        <img src="/images/logos/logo2.png"
-                            draggable="false"
-                            class="w-full mx-auto" 
-                            style="max-width:200px;" 
-                        >
-                    </Link>
-                </div>
+                <Link :href="route('welcome')" class="my-4 block">
+                    <ApplicationLogoAdmin></ApplicationLogoAdmin>
+                </Link>
 
                 <!-- Dashboard nav item -->
                 <div class="mb-2">
@@ -26,7 +20,7 @@
                         :active="route().current('dashboard')">
 
                         <span class="material-icons-round">dashboard</span>
-                        <span>{{ __('sidebar_dashboard') }}</span>
+                        <span>{{ __('Dashboard') }}</span>
                     </BreezeNavLink>
                 </div>
 
@@ -37,7 +31,7 @@
                         :active="route().current('ads*')">
 
                         <span class="material-icons-outlined">campaign</span>
-                        <span>{{ __('sidebar_ads') }}</span>
+                        <span>{{ __('Manage Ads') }}</span>
                     </BreezeNavLink>
                 </div>
                 
@@ -48,7 +42,18 @@
                         :active="route().current('listing*')">
                         
                         <span class="material-icons-outlined">list_alt</span>
-                        <span>{{__('sidebar_listing')}}</span>
+                        <span>{{__('Manage Listings')}}</span>
+                    </BreezeNavLink>
+                </div>
+               
+                <!-- Setting -->
+                <div class="mb-2" v-if="$page.props.auth.user.admin == true">
+                    <BreezeNavLink 
+                        :href="route('setting')" 
+                        :active="route().current('setting*')">
+                        
+                        <span class="material-icons-outlined">settings</span>
+                        <span>{{__('Settings')}}</span>
                     </BreezeNavLink>
                 </div>
             </div>
@@ -91,15 +96,15 @@
                         </span>
 
                         <BreezeDropdownLink :href="route('ads')" method="get" as="button">
-                            {{ __('modal_ads') }}
+                            {{ __('My Ads') }}
                         </BreezeDropdownLink>
 
                         <BreezeDropdownLink :href="route('profile.edit')" method="get" as="button">
-                            {{ __('modal_profile') }}
+                            {{ __('Profile') }}
                         </BreezeDropdownLink>
 
                         <BreezeDropdownLink :href="route('logout')" method="post" as="button">
-                            {{ __('modal_logout') }}
+                            {{ __('Log Out') }}
                         </BreezeDropdownLink>
                     </template>
                 </BreezeDropdown>
@@ -116,13 +121,12 @@
 import BreezeDropdown from '@/Components/Dropdown.vue'
 import BreezeDropdownLink from '@/Components/DropdownLink.vue'
 import BreezeNavLink from '@/Components/NavLink.vue'
+import ApplicationLogoAdmin from '@/Components/ApplicationLogoAdmin.vue'
 import { Link, usePage } from '@inertiajs/vue3';
 import { useWindowSize } from '@vueuse/core';
 import { ref } from 'vue';
 
 const { width, height } = useWindowSize();
-
-const trans = usePage().props.lang.authLayout;
 
 const showingNavigationDropdown =  ref(false);
 

@@ -39,13 +39,11 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'lang' => [
-                'auth' => \Lang::get('auth'),
-            ],
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),
                     'successTwo' => $request->session()->get('successTwo'),
+                    'successThree' => $request->session()->get('successThree'),
                     'data' => $request->session()->get('data'),
                 ];
             },

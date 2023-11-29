@@ -3,7 +3,7 @@
         
         <div>
             <label for="phone-action" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Phone Number
+                {{__('Phone')}}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.phone" class="text-sm text-red-400 ">{{this.errors.phone}}</span>
@@ -15,7 +15,6 @@
                 :value="phone" 
                 type="number"  
                 id="phone-action"
-                placeholder="xxxxxxxxxx" 
                 class="w-full rounded border-gray-200"
                 :class="classes"
             >
@@ -23,7 +22,7 @@
 
         <div>
             <label for="whatsapp-action" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Whatsapp
+                {{ __('Whatsapp') }}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.whatsapp" class="text-sm text-red-400 ">{{this.errors.whatsapp}}</span>
@@ -33,7 +32,6 @@
             <input 
                 @input="$emit('update:whatsapp', $event.target.value)"
                 :value="whatsapp" 
-                placeholder="xxxxxxxxxx" 
                 type="number" 
                 id="whatsapp-action" 
                 class="w-full rounded border-gray-200"
@@ -43,7 +41,7 @@
 
         <div>
             <label for="shop-action" class="flex items-center gap-2 text-gray-900 font-semibold">
-                Online Shop
+                {{ __('Shop Address') }}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.shop" class="text-sm text-red-400 ">{{this.errors.shop}}</span>
@@ -55,7 +53,6 @@
                 :value="shop" 
                 type="url" 
                 id="shop-action" 
-                placeholder="https://myshop.com/" 
                 class="w-full rounded border-gray-200"
                 :class="classes"
             >

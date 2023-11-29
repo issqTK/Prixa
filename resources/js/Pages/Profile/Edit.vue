@@ -9,26 +9,19 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8">
-                    <label 
-                        v-if="$page.props.auth.user.profile_picture"
-                        for="file" 
-                        class="relative group flex justify-center items-center cursor-pointer h-64 w-64 md:max-w-full"
-                        >
-                        <img 
-                            :src="'/images/profile/' + $page.props.auth.user.profile_picture" 
-                            alt="profile picture"
+                    <label v-if="$page.props.auth.user.profile_picture"
+                        for="file" class="relative group flex justify-center items-center cursor-pointer h-64 w-64 md:max-w-full" >
+                        <img :src="'/images/profile/' + $page.props.auth.user.profile_picture" 
                             class="absolute w-full top-2/4 -translate-y-1/2 right-0 z-0 group-hover:opacity-20 transition-all rounded-full"
-                            >
+                        >
                         <span class="bg-white z-10 text-lg font-semibold rounded p-2 invisible group-hover:visible transition-all">
                             {{__('Choose Image')}}
                         </span>
                     </label>
 
-                    <label 
-                        v-else
-                        for="file"
-                        class="relative group flex justify-center items-center cursor-pointer h-64 w-64 md:max-w-full"
-                        >
+                    <label v-else
+                        for="file" class="relative group flex justify-center items-center cursor-pointer h-64 w-64 md:max-w-full"
+                    >
                         <img 
                             src='/images/profile/profil_default.png'
                             class="absolute w-full top-0 right-0 z-0 group-hover:opacity-20 transition-all rounded-full"

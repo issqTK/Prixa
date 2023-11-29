@@ -3,7 +3,7 @@
         
         <div>
             <label for="username" class="flex gap-2 items-center font-semibold text-gray-900">
-                Full Name
+                {{__('Name')}}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.fullName" class="text-sm text-red-400 ">{{this.errors.fullName}}</span>
@@ -22,7 +22,7 @@
 
         <div>
             <label for="email" class="flex gap-2 items-center font-semibold text-gray-900">
-                Email Address 
+                {{__('Email')}} 
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.email" class="text-sm text-red-400 ">{{this.errors.email}}</span>
@@ -41,7 +41,7 @@
 
         <div>
             <label for="password" class="flex gap-2 items-center font-semibold text-gray-900">
-                Password 
+                {{ __('Password') }}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.password" class="text-sm text-red-400 ">{{this.errors.password}}</span>
@@ -60,7 +60,7 @@
         
         <div>
             <label for="passwordConfirm" class="flex gap-2 items-center font-semibold text-gray-900">
-                Password Confirm
+                {{__('Confirm Password')}}
                 <div class="flex items-center gap-1">
                     <span class="text-red-400 pt-1.5">*</span> 
                     <span v-show="this.errors.passwordConfirm" class="text-sm text-red-400 ">{{this.errors.passwordConfirm}}</span>

@@ -1,3 +1,68 @@
+<template>
+    <Head :title="__('Search')"></Head>
+    
+    <h1 class="font-bold text-2xl mb-4">{{__('Search for Phones')}}</h1>
+
+    <form id="search" class="flex gap-4 mb-6">
+        <div class="flex flex-col flex-1 gap-2">
+            <input
+                type="search"
+                v-model="form.search"
+                :placeholder="__('Use Keywords')"
+                class="rounded text-sm border-gray-200"
+                :class="classes"
+            />
+
+            <div class="flex gap-2">
+                <select
+                    v-model="form.city"
+                    class="w-6/12 rounded bg-slate-100 text-sm border-none"
+                    :class="classes"
+                >
+                    <option selected :value="null">{{ __('All Cities') }}</option>
+                    <option
+                        v-for="city in cities"
+                        :key="city.id"
+                        :value="city.id"
+                        class="bg-slate-50"
+                    >
+                        {{ city.name }}
+                    </option>
+                </select>
+
+                <select
+                    v-model="form.category"
+                    class="w-6/12 rounded bg-slate-100 text-sm border-none"
+                    :class="classes"
+                >
+                    <option selected :value="null">
+                        {{ __('All Categories') }}
+                    </option>
+                    <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.id"
+                        class="bg-slate-50"
+                    >
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <btn @click.prevent="getResults" class="px-8"> {{ __('Search') }} </btn>
+    </form>
+
+    <AdLink :ads="displayAds.data"></AdLink>
+
+    <div v-if="displayAds.data === 0"> {{__('No Results Found')}}</div>
+
+    <TailwindPagination
+        :data="displayAds"
+        @pagination-change-page="getResults"
+    />
+</template>
+
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import Layout from "@/Layouts/GuestLayout.vue";
@@ -35,7 +100,9 @@ const getResults = (page = 1) => {
             },
         })
         .then((response) => {
-            displayAds.value = response.data;
+            if(response.data.data.length == 0)
+                displayAds.value.data = 0;
+            else displayAds.value = response.data
         })
         .then(() => {
             document
@@ -54,63 +121,3 @@ onMounted(() => {
     });
 });
 </script>
-<template>
-    <h1 class="font-bold text-2xl mb-4">Search for Phones</h1>
-
-    <form id="search" class="flex gap-4 mb-6">
-        <div class="flex flex-col flex-1 gap-2">
-            <input
-                type="search"
-                v-model="form.search"
-                placeholder="Use Keywords"
-                class="rounded text-sm border-gray-200"
-                :class="classes"
-            />
-
-            <div class="flex gap-2">
-                <select
-                    v-model="form.city"
-                    class="w-6/12 rounded bg-slate-100 text-sm border-none"
-                    :class="classes"
-                >
-                    <option disabled selected :value="null">All Cities</option>
-                    <option
-                        v-for="city in cities"
-                        :key="city.id"
-                        :value="city.id"
-                        class="bg-slate-50"
-                    >
-                        {{ city.name }}
-                    </option>
-                </select>
-
-                <select
-                    v-model="form.category"
-                    class="w-6/12 rounded bg-slate-100 text-sm border-none"
-                    :class="classes"
-                >
-                    <option disabled selected :value="null">
-                        All Categories
-                    </option>
-                    <option
-                        v-for="category in categories"
-                        :key="category.id"
-                        :value="category.id"
-                        class="bg-slate-50"
-                    >
-                        {{ category.name }}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <btn @click.prevent="getResults" class="px-8"> Search </btn>
-    </form>
-
-    <AdLink :ads="displayAds.data"></AdLink>
-
-    <TailwindPagination
-        :data="displayAds"
-        @pagination-change-page="getResults"
-    />
-</template>

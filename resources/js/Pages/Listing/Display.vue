@@ -1,10 +1,10 @@
 <template>
-    <Head :title="__('Manage Listing')" />
+    <Head :title="__('Manage Listings')" />
 
     <BreezeAuthenticatedLayout>
         <template #header>
             <h1 class="font-semibold text-xl text-black leading-tight">
-                {{ __('Listing Manager') }}
+                {{ __('Listings Manager') }}
             </h1>
         </template>
 

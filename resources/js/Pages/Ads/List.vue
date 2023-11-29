@@ -18,7 +18,7 @@
                     {{ $page.props.flash.success }}
                 </div>
 
-                <div class="relative overflow-hidden sm:rounded-lg sm:shadow-xl mb-4" >
+                <div class="relative overflow-hidden rounded sm:rounded-lg shadow sm:shadow-xl mb-4" >
                     <h2 class="flex items-center gap-3 px-4 py-3 text-xl font-bold bg-zinc-200">
                         <span class="material-icons-outlined">featured_play_list</span>
                         {{ __('Ads List') }}
@@ -157,13 +157,15 @@ import BreezeAuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ref } from "vue";
 import { TailwindPagination } from "laravel-vue-pagination";
 
+const self = this;
+
 const props = defineProps(['areYouSure']);
 
 const page = usePage();
 
 const deletAd = (ad) => {
     router.delete(route('ads.delete', ad), {
-        onBefore: () => confirm(props.areYouSure),
+        onBefore: () => confirm(self.__('Are you sure you want to delete this ad?')),
         onSuccess: () => {
             setTimeout(() => { page.props.flash.success = null }, 2500);
             getResults();

@@ -1,7 +1,7 @@
 export const translations = {
     methods: {
       __(key, replacements = {}) {
-        let translation = window._translations[key] || key;
+        let translation = window._translations[key] || 'missing';
    
         Object.keys(replacements).forEach(r => {
           translation = translation.replace(`:${r}`, replacements[r]);
