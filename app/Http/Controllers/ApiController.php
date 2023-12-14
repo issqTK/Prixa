@@ -9,9 +9,15 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\Ad;
+use App\Models\Logo;
 
 class ApiController extends Controller
 {
+    public function adminLogo() {
+        return Logo::find(1);
+
+    }
+
     public function citiesAll() {
         return City::all();
     }

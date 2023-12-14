@@ -2,10 +2,12 @@
     <modal :show="ShowingModalEdit" @close="closeModal">
         <div class="p-4" v-if="currentCategory !== null">
             <div v-if="$page.props.flash.successTwo" class="bg-zinc-600 text-white rounded text-sm opacity-80 w-8/12 text-center py-2 font-semibold absolute top-0 right-2/4 p-2 translate-x-2/4"> {{ $page.props.flash.successTwo }} </div>
+            
+            <div v-if="$page.props.flash.error" class="bg-rose-600 text-white rounded text-sm opacity-80 w-8/12 text-center py-2 font-semibold absolute top-0 right-2/4 p-2 translate-x-2/4"> {{ $page.props.flash.error }} </div>
 
             <!-- Category -->
             <div class="mb-4">
-                <InputLabel for="category" class="mb-1">{{ __('Category') }}</InputLabel>
+                <InputLabel for="category" class="mb-1 text-zinc-900">{{ __('Category') }}</InputLabel>
 
                 <div class="flex gap-4 mt-1">
                     <TextInput v-model="currentCategory.name" @keyup="categoryError = null" id="category" class="flex-1 text-sm"></TextInput>
@@ -116,9 +118,14 @@ export default {
         deleteProduct(product, index) {
             router.delete(route('product.delete', product), {
                 preserveState: true,
+                onBefore: () => confirm(this.__('Are you sure you want to delete this product?')),
                 onSuccess: () => {
-                    this.products.splice(index, 1);
-                    setTimeout(() => { this.$page.props.flash.successTwo = null; }, 2500);
+                    if(!this.$page.props.flash.error) {
+                        this.products.splice(index, 1);
+                        setTimeout(() => { this.$page.props.flash.successTwo = null; }, 2500);
+                    } else {
+                        setTimeout(() => { this.$page.props.flash.error = null; }, 2500);
+                    }
                 }
             });
         },

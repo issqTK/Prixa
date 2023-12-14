@@ -5,7 +5,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Settings') }}</h2>
         </template>
 
-        <div class="py-8">
+        <div class="py-8 px-4 sm:px-0">
             <div class="max-w-7xl flex flex-col gap-24 mx-auto sm:px-6 lg:px-8">
 
                 <LogoSetting :logos="logos"></LogoSetting>

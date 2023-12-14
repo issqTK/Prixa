@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Logo;
+use App\Models\Listing;
+use App\Models\Ad;
 
 class SettingController extends Controller
 {
@@ -29,7 +31,20 @@ class SettingController extends Controller
     }
 
     public function deleteProduct($product) {
-        Product::find($product)->delete();
+        $product = Product::find($product);
+
+        $contains = Listing::whereJsonContains('product_ids', $product->id)->first();
+
+        $contains_in_ads = Ad::where('product_id', $product)->first();
+
+        if(!is_null($contains))
+            return back()->with(['error' => __("Can't delete product which is attached to listing!")]);
+
+        if(!is_null($contains_in_ads))
+            return back()->with(['error' => __("Can't delete product which is attached to ads!")]);
+
+        $product->delete();
+        
         return back()->with(['successTwo' => __('Successfully Deleted')]);
     }
    
@@ -66,6 +81,32 @@ class SettingController extends Controller
     }
 
     public function deleteCategory($id) {
+        $products = Product::where('category_id', $id)->get();
+
+        $contains = null;
+        $contains_in_ads = null;
+
+        foreach( $products as $product ) {
+            $contains = Listing::where('product_ids', 'like', "%{$product->id}%");
+
+            if($contains)
+                break;
+        }
+
+        foreach( $products as $product ) {
+            $contains_in_ads = Ad::where('product_id', $product->id);
+
+            if($contains_in_ads)
+                break;
+        }
+
+
+        if(!is_null($contains))
+            return back()->with(['error' => __("Can't delete category which is attached to listing!")]);
+
+        if(!is_null($contains_in_ads))
+            return back()->with(['error' => __("Can't delete category which is attached to ads!")]);
+
         Product::where('category_id', $id)->delete();
 
         Category::find($id)->delete();
@@ -98,8 +139,66 @@ class SettingController extends Controller
     }
 
     public function deleteCity($city) {
-        City::find($city)->delete();
+        $city = City::find($city);
 
+        $contains_in_ads = Ad::where('city_id', $city->id)->first();
+
+        $contains_in_listings = Listing::where('city_id', $city->id)->first();
+
+        if(!is_null($contains_in_ads)) 
+            return back()->with(['error_two' => __("Can't delete city which is attached to ads!")]);
+
+        if(!is_null($contains_in_listings)) 
+            return back()->with(['error_two' => __("Can't delete city which is attached to listings!")]);
+
+        $city->delete();
+        
         return back()->with(['successTwo' => __('Successfully Deleted')]);
+    }
+
+    public function updateFrontLogo(Request $request) {
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move(public_path().'/images/logos/', $name);
+
+            $logo = Logo::find(1);
+
+            $logo->frontLogo = $name;
+
+            $logo->save();
+            }
+    }
+    public function updateBackLogo(Request $request) {
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move(public_path().'/images/logos/', $name);
+
+            $logo = Logo::find(1);
+
+            $logo->backLogo = $name;
+
+            $logo->save();
+        }
+    }
+    public function updateFaviconLogo(Request $request) {
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $name = time() . $file->getClientOriginalName();
+
+            $file->move(public_path().'/images/logos/', $name);
+
+            $logo = Logo::find(1);
+
+            $logo->faviconLogo = $name;
+
+            $logo->save();
+        }
     }
 }

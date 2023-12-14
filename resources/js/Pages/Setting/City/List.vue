@@ -11,6 +11,10 @@
             {{ $page.props.flash.successTwo }} 
         </div>
 
+        <div v-if="$page.props.flash.error_two" class="text-white font-semibold text-sm bg-rose-600 p-2 rounded absolute right-0 bottom-2/4 translate-y-2/4 z-10"> 
+            {{ $page.props.flash.error_two }} 
+        </div>
+
         <!-- header -->
         <div class="grid grid-cols-5 flex items-center text-base font-bold rounded-t-md divide-x divide-white text-zinc-900 bg-zinc-200" 
             id="city-header"> 
@@ -34,7 +38,7 @@
 
             <!-- City -->
             <div class="mb-4">
-                <InputLabel for="city" class="mb-1">{{ __('City') }}</InputLabel>
+                <InputLabel for="city" class="mb-1 text-zinc-900">{{ __('City') }}</InputLabel>
 
                 <div class="flex gap-4 mt-1">
                     <TextInput 
@@ -98,9 +102,14 @@ import BreezeButton from "@/Components/PrimaryButton.vue";
                 router.delete(route('city.delete', city), {
                 preserveState : true,
                 preserveScroll : true,
+                onBefore: () => confirm(this.__('Are you sure you want to delete this city?')),
                 onSuccess: () => {
-                    this.cities.splice(index, 1);
-                    setTimeout(() => { this.$page.props.flash.successTwo = null; }, 2500);
+                    if(!this.$page.props.flash.error_two) {
+                        this.cities.splice(index, 1);
+                        setTimeout(() => { this.$page.props.flash.successTwo = null; }, 2500);
+                    } else {
+                        setTimeout(() => { this.$page.props.flash.error_two = null; }, 2500);
+                    }
                 }
             });
             },

@@ -31,7 +31,7 @@
 
                     <div class="py-4 px-6 flex flex-col gap-4">
                         <div v-if="listings.length > 0" v-for="listing in listings" :key="listing.id"
-                            class="flex justify-between items-center px-6 py-2 relative cursor-pointer rounded overflow-hidden border bg-zinc-100 border-zinc-300">
+                            class="flex justify-between items-center gap-2 px-2 sm:px-4 lg:px-6 py-2 relative cursor-pointer rounded overflow-hidden border bg-zinc-100 border-zinc-300">
 
                             <!-- Actions -->
                             <div class="absolute top-0 bottom-0 left-0 right-0 flex">
@@ -50,22 +50,20 @@
                                 </div>
                             </div>
 
-                            <h3
-                                class="flex-1 flex gap-2 items-center text-base md:text-lg font-semibold capitalize rounded-t">
-                                <img :src="'/storage/images/listings/' + listing.avatar" class="w-8 rounded-sm"
-                                    draggable="false">
+                            <h3 class="flex-1 flex gap-2 items-center text-sm md:text-base font-semibold capitalize rounded-t">
+                                <img :src="'/storage/images/listings/' + listing.avatar" class="w-8 rounded-sm" draggable="false">
                                 {{ listing.title }}
                             </h3>
 
-                            <div class="flex gap-4 sm:gap-6 md:gap-8 text-sm md:text-base">
-                                <div class="flex items-center w-auto justify-start gap-1 font-bold ">
-                                    <span>{{ listing.city }}</span>
-                                    <span class="material-icons-outlined !text-base md:!text-2xl">pin_drop</span>
-                                </div>
-
+                            <div class="flex justify-between w-4/12 text-sm" style="min-width:140px">
                                 <div class="flex items-center justify-end gap-1 font-bold">
                                     <span>{{ listing.product_count }}</span>
-                                    <span class="material-icons-outlined !text-base md:!text-2xl">category</span>
+                                    <span class="material-icons-outlined !text-base">category</span>
+                                </div>
+
+                                <div class="flex items-center w-auto justify-start gap-1 font-bold ">
+                                    <span>{{ listing.city }}</span>
+                                    <span class="material-icons-outlined !text-base">pin_drop</span>
                                 </div>
                             </div>
 

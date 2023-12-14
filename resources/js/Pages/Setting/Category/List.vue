@@ -5,6 +5,9 @@
         <div v-if="$page.props.flash.success" class="text-white font-semibold text-sm bg-zinc-600 p-2 rounded absolute right-0 bottom-2/4 translate-y-2/4 z-10"> 
             {{ $page.props.flash.success }} 
         </div>
+        <div v-if="$page.props.flash.error" class="text-white font-semibold text-sm bg-rose-600 p-2 rounded absolute right-0 bottom-2/4 translate-y-2/4 z-10"> 
+            {{ $page.props.flash.error }} 
+        </div>
 
         <button @click.prevent="ShowingModal = true"
             class="absolute -top-12 right-2 inline-flex items-center justify-center gap-2 py-2 px-4 text-xs font-bold tracking-wide uppercase hover:bg-zinc-950 bg-transparent text-zinc-950 hover:text-zinc-50 transition-all easy-in-out rounded border border-zinc-950">
@@ -91,9 +94,15 @@ export default {
         deleteCategory(category, index) {
             router.delete(route('category.delete', category), {
                 preserveState : true,
+                preserveScroll: true,
+                onBefore: () => confirm(this.__('Are you sure you want to delete this category?')),
                 onSuccess: () => {
-                    this.categories.splice(index, 1);
-                    setTimeout(() => { this.$page.props.flash.success = null; }, 2500);
+                    if(!this.$page.props.flash.error) {
+                        this.categories.splice(index, 1);
+                        setTimeout(() => { this.$page.props.flash.success = null; }, 2500);
+                    } else {
+                        setTimeout(() => { this.$page.props.flash.error = null; }, 2500);
+                    }
                 }
             });
         },

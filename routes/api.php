@@ -15,6 +15,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('get-admin-logo', [ApiController::class, 'adminLogo']);
+
 Route::get('get-cities-all', [ApiController::class, 'citiesAll']);
 
 Route::get('get-categories-all', [ApiController::class, 'categoriesAll']);

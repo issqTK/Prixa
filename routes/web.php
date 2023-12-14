@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     
     Route::delete('city/{city}', 'App\Http\Controllers\SettingController@deleteCity')->name('city.delete');    
     Route::post('city/{city}', 'App\Http\Controllers\SettingController@createCity')->name('city.create');
+
+    Route::post('update-front-logo', 'App\Http\Controllers\SettingController@updateFrontLogo')->name('update.frontLogo');
+    Route::post('update-back-logo', 'App\Http\Controllers\SettingController@updateBackLogo')->name('update.backLogo');
+    Route::post('update-favicon-logo', 'App\Http\Controllers\SettingController@updateFaviconLogo')->name('update.faviconLogo');
 });
 
 Route::get('/search', function(Request $request) { return Inertia::render('Search'); })->name('search');
