@@ -18,7 +18,7 @@ class ListingController extends Controller
     public function __construct() {
         $this->middleware(function ($request, $next) {
             if(!auth()->user()->admin)
-                return back();
+                return redirect()->route('dashboard');
 
             return $next($request);
         });
@@ -27,16 +27,16 @@ class ListingController extends Controller
     public function index() {
 
         $listings = Listing::query()
-                    ->with('city')
-                    ->latest()
-                    ->get()
-                    ->map(fn($query) => [
-                        'id' => $query->id,
-                        'title' => $query->title,
-                        'avatar' => $query->avatar,
-                        'product_count' => count($query->product_ids),
-                        'city' => $query->city->name
-                    ]);
+            ->with('city')
+            ->latest()
+            ->get()
+            ->map(fn($query) => [
+                'id' => $query->id,
+                'title' => $query->title,
+                'avatar' => $query->avatar,
+                'product_count' => count($query->product_ids),
+                'city' => $query->city->name
+        ]);
 
         return inertia()->render('Listing/Display', [
             'listings' => $listings,

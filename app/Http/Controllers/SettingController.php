@@ -16,18 +16,19 @@ class SettingController extends Controller
     public function __construct() {
         $this->middleware(function ($request, $next) {
             if(!auth()->user()->admin)
-                return back();
+               return redirect()->route('dashboard');
 
             return $next($request);
-        });
+        });     
     }
     
     public function index() {
+
         $logos = Logo::first();
 
         return inertia()->render('Setting/Index', [
             'logos' => $logos
-        ]);
+        ]); 
     }
 
     public function deleteProduct($product) {
@@ -87,14 +88,14 @@ class SettingController extends Controller
         $contains_in_ads = null;
 
         foreach( $products as $product ) {
-            $contains = Listing::where('product_ids', 'like', "%{$product->id}%");
+            $contains = Listing::where('product_ids', 'like', "%{$product->id}%")->first();
 
             if($contains)
                 break;
         }
 
         foreach( $products as $product ) {
-            $contains_in_ads = Ad::where('product_id', $product->id);
+            $contains_in_ads = Ad::where('product_id', $product->id)->first();
 
             if($contains_in_ads)
                 break;
@@ -115,6 +116,11 @@ class SettingController extends Controller
     }
    
     public function createCategory($category) {
+        $exist = Category::whereRaw('LOWER(name) = (?)', [strtolower($category)])->first();
+
+        if(!is_null($exist))
+            return back()->with(['error_two' => __("Category already exists")]);
+
         $cat = Category::create([
             'name' => $category,
             'created_at' => NOW()
@@ -127,6 +133,11 @@ class SettingController extends Controller
     }
     
     public function createCity($city) {
+        $exist = City::whereRaw('LOWER(name) = (?)', [strtolower($city)])->first();
+
+        if(!is_null($exist))
+            return back()->with(['error_two' => __("City already exists")]);
+
         $c = City::create([
             'name' => $city,
             'created_at' => NOW()
@@ -171,6 +182,7 @@ class SettingController extends Controller
             $logo->save();
             }
     }
+    
     public function updateBackLogo(Request $request) {
         if($request->hasFile('file')) {
             $file = $request->file('file');
@@ -186,6 +198,7 @@ class SettingController extends Controller
             $logo->save();
         }
     }
+    
     public function updateFaviconLogo(Request $request) {
         if($request->hasFile('file')) {
             $file = $request->file('file');

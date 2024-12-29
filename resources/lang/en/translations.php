@@ -12,41 +12,7 @@ return [
     'Search' => 'Search',
     'Create Ad' => 'Create Ad',
     'My Ads' => 'My Ads',
-    /* setting */
-    'Settings' => 'Settings',
-    #category setting
-    'Category Settings' => 'Category Settings',
-    'New Category' => 'New Category',
-    'List Categories' => 'List Categories',
-    'Products' => 'Products',
-    'Edit' => 'Edit',
-    'New Product' => 'New Product',
-    'Select Image' => 'Select Image',
-
-    #cities setting
-    'List Cities' => 'List Cities',
-    'New City' => 'New City',
-    'City Settings' => 'City Settings',
     
-    
-    #flash setting
-    'Product field Required! (only characters and numbers allowed)'  => 'Product field Required! (only characters and numbers allowed)',
-    'Image is required! (you may select one image)' => 'Image is required! (you may select one image)',
-    'Successfully deleted' => 'Succefully Deleted',
-    'Successfully added' => 'Succefully Added',
-    'Successfully updated' => 'Succefully Updated',
-    'Category field Required! (only characters and numbers allowed)' => 'Category field Required! (only characters and numbers allowed)',
-    'There is no Category yet!' => 'There is no Category yet!',
-    'Successfully Created' => 'Successfully Created',
-    'City field Required! (only characters and numbers allowed)' => 'City field Required! (only characters and numbers allowed)',
-
-    /* ads */
-    'Ads List' => 'Ads List',
-    'New Ad' => 'New Ad',
-    'Preview Ad' => 'Preview Ad',
-    'Delete Ad' => 'Delete Ad',
-    'No Ads To List Yet!' => 'No Ads To List Yet!',
-    'Edit Ad' => 'Edit Ad',
     # ads guest
     'Create new Ads' => 'Create new Ads',
     'Next' => 'Next',
@@ -68,12 +34,6 @@ return [
     'Email already exist!' => 'Email already exist!',
     'Password required! (minimum 7 characters)' => 'Password required! (minimum 7 characters)',
     'Password confirmation does not match!' => 'Password confirmation does not match!',
-    /* listing */
-    'Listings List' => 'Listings List',
-    'Create Listing' => 'Create Listing',
-    'Edit Listing' => 'Edit Listing',
-    'New Listing' => 'New Listing',
-    'No Listings To List Yet!' => 'No Listings To List Yet!',
 
     # Welcome
     'New Arrivals' => 'New Arrivals',

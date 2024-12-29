@@ -14,9 +14,9 @@ class LogoSeeder extends Seeder
     public function run(): void
     {
         Logo::create([
-            'frontLogo' => 'logo.png',
-            'backLogo' => 'logo2.png',
-            'faviconLogo' => 'logo.png',
+            'frontLogo' => 'frontLogo.png',
+            'backLogo' => 'backLogo.png',
+            'faviconLogo' => 'favicon.png',
         ]);
     }
 }

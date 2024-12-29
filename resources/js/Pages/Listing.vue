@@ -15,7 +15,7 @@
         @pagination-change-page="getResults"
     />
 
-    <p class="text-gray-800 text-sm break-words hyphens-auto leading-6 mb-4" v-html="listing.description_footer"></p>
+    <p class="text-gray-800 text-sm break-words hyphens-auto leading-6 my-4 " v-html="listing.description_footer"></p>
 
 
 </template>

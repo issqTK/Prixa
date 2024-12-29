@@ -34,7 +34,7 @@ defineProps(['totalAds','activeAds','inactiveAds']);
                     </div>
 
                     <div class="p-4 md:p-6 flex flex-col text-slate-50 gap-4 items-center md:bg-cover bg-center bg-sun-set-item border rounded">
-                        <span class="text-xl font-bold md:text-2xl">200</span> 
+                        <span class="text-xl font-bold md:text-2xl">0</span> 
                         <span class="text-sm font-semibold">{{ __('Total Views') }}</span>
                     </div>
                 </div>

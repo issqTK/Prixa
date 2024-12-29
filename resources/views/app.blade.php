@@ -6,6 +6,8 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="icon" href="/images/logos/<?=\App\Models\Logo::find(1)->faviconLogo;?>">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -20,7 +22,7 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
-
+                
         <x-translations></x-translations>
     </body>
 </html>

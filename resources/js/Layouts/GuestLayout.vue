@@ -161,6 +161,10 @@
                 <slot />
             </div>
         </div>
+
+        <div class="bg-slate-500 text-slate-50 p-4 w-full text-center sm:max-w-2xl mt-6 shadow-md overflow-hidden sm:rounded-md">
+            Prixa all rights reserved © 2023
+        </div>
     </div>
 </template>
 
